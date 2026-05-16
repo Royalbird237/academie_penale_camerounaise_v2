@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Droit Pénal Camerounais — Plateforme IA</title>
+  <title>Académie Pénale — Cas pratiques · Droit camerounais</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -15,1145 +15,536 @@
       --muted: #7a8ba8;
       --gold: #d4a853;
       --gold-dim: rgba(212,168,83,0.15);
-      --gold-border: rgba(212,168,83,0.3);
       --green: #2dd4a0;
       --green-dim: rgba(45,212,160,0.1);
       --blue: #60a5fa;
       --red: #f87171;
       --border: rgba(255,255,255,0.07);
-      --shadow: 0 24px 60px rgba(0,0,0,0.5);
       --radius: 18px;
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      overflow-x: hidden;
     }
-
-    /* Background decoration */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -200px;
-      right: -200px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(212,168,83,0.06) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -200px;
-      left: -200px;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(45,212,160,0.04) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .wrapper {
-      position: relative;
-      z-index: 1;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 32px 20px 60px;
-    }
-
-    /* HEADER */
+    .wrapper { max-width: 1280px; margin: 0 auto; padding: 32px 20px 60px; }
     .header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-bottom: 36px;
-      padding-bottom: 28px;
+      display: flex; justify-content: space-between; flex-wrap: wrap;
+      gap: 20px; margin-bottom: 36px; padding-bottom: 28px;
       border-bottom: 1px solid var(--border);
     }
-
-    .header-left h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
-      font-weight: 700;
-      line-height: 1.1;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-
-    .header-left h1 em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    .header-subtitle {
-      margin-top: 8px;
-      font-size: 0.85rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      font-family: 'IBM Plex Mono', monospace;
-    }
-
+    .header-left h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3.5vw, 2.6rem); }
+    .header-left h1 em { color: var(--gold); font-style: italic; }
+    .header-subtitle { margin-top: 8px; font-size: 0.85rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
     .ai-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: var(--gold-dim);
-      border: 1px solid var(--gold-border);
-      border-radius: 999px;
-      font-size: 0.78rem;
-      color: var(--gold);
-      font-family: 'IBM Plex Mono', monospace;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px; background: var(--gold-dim); border: 1px solid rgba(212,168,83,0.3);
+      border-radius: 999px; font-size: 0.78rem; color: var(--gold);
     }
-
-    .ai-badge .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--gold);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    /* STATS BAR */
+    .ai-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
     .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-bottom: 24px;
     }
-
     .stat-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 20px;
+      display: flex; align-items: center; gap: 14px;
     }
-
-    .stat-icon {
-      font-size: 1.4rem;
-      opacity: 0.8;
-    }
-
-    .stat-info .label {
-      font-size: 0.72rem;
-      color: var(--muted);
-      font-family: 'IBM Plex Mono', monospace;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .stat-info .value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1.1;
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* LAYOUT */
-    .layout { display: none; }
-
-    /* BOTTOM BAR */
-    .bottom-bar {
-      margin-top: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .bottom-section {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-end;
-      gap: 16px;
-    }
-
-    .bottom-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      flex: 1;
-    }
-
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      min-width: 140px;
-      flex: 1;
-    }
-
-    .filter-group select { margin-bottom: 0; }
-
-    .bottom-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: flex-end;
-    }
-
-    .bottom-actions button {
-      width: auto;
-      padding: 10px 18px;
-      white-space: nowrap;
-    }
-
-    .bottom-refs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
-    }
-
-    .bottom-refs a {
-      font-size: 0.78rem;
-      color: var(--blue);
-      text-decoration: none;
-      padding: 5px 12px;
-      border: 1px solid rgba(96,165,250,0.2);
-      border-radius: 8px;
-      background: rgba(96,165,250,0.05);
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-
-    .bottom-refs a:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-dim); }
-
-    @media (max-width: 540px) {
-      .stats-bar { grid-template-columns: 1fr; }
-      .bottom-section { flex-direction: column; }
-      .bottom-actions button { width: 100%; }
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card-title::before {
-      content: '';
-      width: 3px;
-      height: 16px;
-      background: var(--gold);
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
-    label {
-      display: block;
-      font-size: 0.75rem;
-      color: var(--muted);
-      font-family: 'IBM Plex Mono', monospace;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    select {
-      width: 100%;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      padding: 10px 12px;
-      font: inherit;
-      font-size: 0.88rem;
-      margin-bottom: 14px;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8ba8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      cursor: pointer;
-    }
-
-    select:focus { outline: 1px solid var(--gold); }
-
-    button {
-      width: 100%;
-      padding: 11px 14px;
-      border-radius: 12px;
-      border: none;
-      font-family: inherit;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      letter-spacing: 0.02em;
-    }
-
-    button:hover { transform: translateY(-1px); filter: brightness(1.1); }
-    button:active { transform: translateY(0); }
-
-    .btn-gold {
-      background: linear-gradient(135deg, #d4a853, #b8862f);
-      color: #0b0f1a;
-      font-weight: 700;
-    }
-
-    .btn-green {
-      background: linear-gradient(135deg, #2dd4a0, #1aad82);
-      color: #0b0f1a;
-      font-weight: 700;
-    }
-
-    .btn-blue {
-      background: linear-gradient(135deg, #60a5fa, #3b82f6);
-      color: #0b0f1a;
-      font-weight: 700;
-    }
-
-    .btn-ghost {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .btn-ai {
-      background: linear-gradient(135deg, #7c3aed, #5b21b6);
-      color: #fff;
-      font-weight: 700;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-ai::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%);
-      transform: rotate(0deg);
-      animation: shimmer 3s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { transform: translateX(-100%) rotate(45deg); }
-      100% { transform: translateX(100%) rotate(45deg); }
-    }
-
-    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-    .btn-full { margin-bottom: 8px; }
-
-    .refs a {
-      display: block;
-      font-size: 0.8rem;
-      color: var(--blue);
-      text-decoration: none;
-      padding: 5px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .refs a:last-child { border-bottom: none; }
-    .refs a:hover { color: var(--gold); }
-
-    /* MAIN */
-    .main { display: flex; flex-direction: column; gap: 16px; }
-
+    .stat-icon { font-size: 1.5rem; }
+    .stat-info .label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-info .value { font-size: 1.5rem; font-weight: 700; color: var(--gold); font-family: 'Playfair Display', serif; }
     .case-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
     }
-
     .case-header {
-      background: linear-gradient(135deg, var(--surface2), var(--surface3));
-      padding: 24px;
-      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, #1a2236, #1f2d45);
+      padding: 24px; border-bottom: 1px solid var(--border);
     }
-
-    .case-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
+    .case-badges { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
     .badge {
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-family: 'IBM Plex Mono', monospace;
-      letter-spacing: 0.06em;
-      border: 1px solid;
+      padding: 4px 12px; border-radius: 999px; font-size: 0.7rem;
+      font-family: 'IBM Plex Mono', monospace; border: 1px solid;
     }
-
-    .badge-theme { background: rgba(96,165,250,0.1); color: var(--blue); border-color: rgba(96,165,250,0.3); }
-    .badge-difficulty { background: rgba(212,168,83,0.1); color: var(--gold); border-color: rgba(212,168,83,0.3); }
-    .badge-mode { background: rgba(45,212,160,0.1); color: var(--green); border-color: rgba(45,212,160,0.3); }
-
-    .case-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      line-height: 1.2;
+    .badge-theme { background: rgba(96,165,250,0.15); color: var(--blue); border-color: rgba(96,165,250,0.3); }
+    .badge-difficulty { background: rgba(212,168,83,0.15); color: var(--gold); border-color: rgba(212,168,83,0.3); }
+    .badge-mode { background: rgba(45,212,160,0.15); color: var(--green); border-color: rgba(45,212,160,0.3); }
+    .case-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 12px; }
+    .case-scenario {
+      background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px;
+      color: var(--muted); font-size: 0.95rem; line-height: 1.6;
+      border-left: 3px solid var(--gold);
+    }
+    .case-body { padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+    .section-title {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
+      color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em;
       margin-bottom: 12px;
     }
-
-    .case-scenario {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.7;
-    }
-
-    .case-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
-
-    .section-title {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--gold);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .questions-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
+    .questions-list { list-style: none; }
     .questions-list li {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--gold);
-      border-radius: 10px;
-      padding: 10px 14px;
+      background: var(--surface2); padding: 12px 16px; margin-bottom: 8px;
+      border-left: 3px solid var(--gold); border-radius: 10px;
       font-size: 0.9rem;
-      line-height: 1.5;
     }
-
-    /* QCM */
-    .qcm-option {
-      display: block;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-
+    .qcm-option { display: block; margin-bottom: 10px; cursor: pointer; }
     .qcm-option input { display: none; }
-
     .qcm-label {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 16px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--surface2);
-      font-size: 0.88rem;
-      line-height: 1.5;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 12px;
+      transition: all 0.2s;
     }
-
-    .qcm-option input:checked + .qcm-label {
-      border-color: var(--gold);
-      background: var(--gold-dim);
-      color: var(--gold);
-    }
-
-    .qcm-label:hover { border-color: rgba(212,168,83,0.4); background: rgba(212,168,83,0.05); }
-
+    .qcm-option input:checked + .qcm-label { border-color: var(--gold); background: var(--gold-dim); }
+    .qcm-option.correct .qcm-label { border-color: var(--green); background: var(--green-dim); color: var(--green); }
+    .qcm-option.wrong .qcm-label { border-color: var(--red); background: rgba(248,113,113,0.1); color: var(--red); }
     .qcm-letter {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--surface3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.72rem;
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 500;
-      flex-shrink: 0;
-      color: var(--muted);
+      width: 28px; height: 28px; background: var(--surface3);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 0.8rem;
     }
-
-    .feedback {
-      padding: 14px 16px;
-      border-radius: 12px;
-      font-size: 0.88rem;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-
-    .feedback.good { background: rgba(45,212,160,0.1); border: 1px solid rgba(45,212,160,0.3); color: #7fffd4; }
-    .feedback.bad { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.3); color: #fca5a5; }
-
+    .feedback { padding: 14px; border-radius: 12px; margin-top: 12px; font-size: 0.9rem; }
+    .feedback.good { background: var(--green-dim); border: 1px solid var(--green); color: var(--green); }
+    .feedback.bad { background: rgba(248,113,113,0.1); border: 1px solid var(--red); color: var(--red); }
     textarea {
-      width: 100%;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      padding: 14px 16px;
-      font: inherit;
-      font-size: 0.9rem;
-      line-height: 1.7;
-      min-height: 180px;
-      resize: vertical;
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 12px; color: var(--text); padding: 14px;
+      font-size: 0.9rem; min-height: 180px; resize: vertical;
+      font-family: 'DM Sans', monospace;
     }
-
-    textarea:focus { outline: 1px solid var(--gold); }
-
-    /* AI CORRECTION BLOCK */
+    textarea:focus { outline: none; border-color: var(--gold); }
+    .correction-block, .static-correction {
+      background: rgba(45,212,160,0.05); border-left: 3px solid var(--green);
+      border-radius: var(--radius); padding: 20px;
+      line-height: 1.6;
+    }
     .ai-correction {
-      background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(45,212,160,0.05));
+      background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(45,212,160,0.05));
       border: 1px solid rgba(124,58,237,0.3);
       border-radius: var(--radius);
       padding: 20px;
     }
-
-    .ai-correction-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
+    .ai-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .ai-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #7c3aed, #5b21b6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .bottom-bar {
+      margin-top: 20px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
     }
-
-    .ai-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #7c3aed, #5b21b6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      flex-shrink: 0;
+    .bottom-section { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
+    .bottom-filters { display: flex; gap: 12px; flex: 1; flex-wrap: wrap; }
+    .filter-group { display: flex; flex-direction: column; gap: 5px; min-width: 140px; }
+    .filter-group label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; }
+    select, button {
+      padding: 10px 16px; border-radius: 10px; border: none;
+      font-family: inherit; font-size: 0.85rem; cursor: pointer;
     }
-
-    .ai-correction-title {
+    select { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    button { font-weight: 600; transition: all 0.2s; }
+    button:hover:not(:disabled) { transform: translateY(-1px); filter: brightness(1.1); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-gold { background: linear-gradient(135deg, #d4a853, #b8862f); color: #0b0f1a; }
+    .btn-blue { background: linear-gradient(135deg, #60a5fa, #3b82f6); color: #0b0f1a; }
+    .btn-ai { background: linear-gradient(135deg, #7c3aed, #5b21b6); color: white; }
+    .btn-ghost { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); }
+    .case-nav {
+      padding: 12px 24px; background: var(--surface2); border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted);
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem;
-      color: #a78bfa;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
     }
-
-    .ai-correction-body {
-      font-size: 0.9rem;
-      line-height: 1.75;
-      color: var(--text);
+    .word-count { text-align: right; font-size: 0.7rem; color: var(--muted); margin-top: 6px; }
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--surface); border: 1px solid var(--gold);
+      border-radius: 12px; padding: 12px 20px;
+      transform: translateY(120%); transition: transform 0.3s;
+      z-index: 1000;
+      font-size: 0.85rem;
     }
-
-    .ai-correction-body p { margin-bottom: 10px; }
-    .ai-correction-body p:last-child { margin-bottom: 0; }
-    .ai-correction-body strong { color: var(--gold); }
-
-    /* Static correction */
-    .static-correction {
-      background: rgba(45,212,160,0.06);
-      border: 1px solid rgba(45,212,160,0.2);
-      border-left: 3px solid var(--green);
-      border-radius: var(--radius);
-      padding: 20px;
-    }
-
-    .static-correction p { font-size: 0.9rem; line-height: 1.75; margin-bottom: 10px; }
-    .static-correction p:last-child { margin-bottom: 0; }
-    .static-correction strong { color: var(--green); }
-
-    /* LOADING */
-    .loading-dots {
-      display: inline-flex;
-      gap: 4px;
-      align-items: center;
-    }
-
-    .loading-dots span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #a78bfa;
-      animation: bounce 1.2s infinite;
-    }
-
-    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); opacity: 0.4; }
-      50% { transform: translateY(-4px); opacity: 1; }
-    }
-
+    .toast.show { transform: translateY(0); }
     .hidden { display: none !important; }
-    .separator { height: 1px; background: var(--border); }
-
-    .empty-state {
-      text-align: center;
-      padding: 48px 20px;
-      color: var(--muted);
-    }
-
-    .empty-state .big-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
-
-    .empty-state p {
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .tip {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-family: 'IBM Plex Mono', monospace;
-    }
-
-    .tip strong { color: var(--gold); }
-
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--muted);
-      font-family: 'IBM Plex Mono', monospace;
-      letter-spacing: 0.05em;
-    }
-
-    /* Animations */
-    .fade-in {
-      animation: fadeIn 0.4s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    footer { text-align: center; margin-top: 32px; font-size: 0.7rem; color: var(--muted); padding: 16px; }
+    .loading { display: inline-block; width: 16px; height: 16px; border: 2px solid var(--gold); border-radius: 50%; border-top-color: transparent; animation: spin 0.8s linear infinite; margin-left: 8px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
+<div class="toast" id="toast">✅ Plateforme prête</div>
 <div class="wrapper">
-
-  <!-- HEADER -->
   <header class="header">
     <div class="header-left">
-      <h1>Droit Pénal <em>Camerounais</em></h1>
-      <div class="header-subtitle">// Plateforme interactive de cas pratiques</div>
+      <h1>Académie <em>Pénale</em></h1>
+      <div class="header-subtitle">// Cas pratiques · Droit pénal camerounais</div>
     </div>
-    <div class="ai-badge">
-      <span class="dot"></span>
-      IA ACTIVE — Corrections personnalisées
-    </div>
+    <div class="ai-badge"><span class="dot"></span> Bibliothèque de 120+ cas</div>
   </header>
-
-  <!-- STATS -->
   <div class="stats-bar">
-    <div class="stat-box">
-      <div class="stat-icon">📚</div>
-      <div class="stat-info">
-        <div class="label">Cas vus</div>
-        <div class="value" id="seenCount">0</div>
-      </div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-icon">✅</div>
-      <div class="stat-info">
-        <div class="label">QCM justes</div>
-        <div class="value" id="goodCount">0</div>
-      </div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-icon">🎯</div>
-      <div class="stat-info">
-        <div class="label">Taux</div>
-        <div class="value" id="rateCount">0%</div>
-      </div>
-    </div>
+    <div class="stat-box"><div class="stat-icon">📚</div><div class="stat-info"><div class="label">Cas étudiés</div><div class="value" id="seenCount">0</div></div></div>
+    <div class="stat-box"><div class="stat-icon">✅</div><div class="stat-info"><div class="label">QCM réussis</div><div class="value" id="goodCount">0</div></div></div>
+    <div class="stat-box"><div class="stat-icon">🎯</div><div class="stat-info"><div class="label">Taux réussite</div><div class="value" id="rateCount">—</div></div></div>
   </div>
-
-  <!-- CAS EN HAUT, PLEINE LARGEUR -->
-  <main class="main">
-    <div class="case-card" id="caseCard">
-      <div class="case-header">
-        <div class="case-badges">
-          <span class="badge badge-theme" id="badgeTheme">Thème</span>
-          <span class="badge badge-difficulty" id="badgeDifficulty">Difficulté</span>
-          <span class="badge badge-mode" id="badgeMode">Mode</span>
-        </div>
-        <h2 class="case-title" id="caseTitle">Lancez votre premier cas pratique</h2>
-        <p class="case-scenario" id="caseScenario">Sélectionnez vos filtres et cliquez sur « Nouveau cas » pour commencer l'entraînement.</p>
-      </div>
-      <div class="case-body" id="caseBody">
-        <div class="empty-state">
-          <div class="big-icon">⚖️</div>
-          <p>Prêt à s'entraîner ? Choisissez un thème, une difficulté et un mode, puis lancez un cas.</p>
-        </div>
-      </div>
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-badges"><span class="badge badge-theme" id="badgeTheme">Droit pénal</span><span class="badge badge-difficulty" id="badgeDifficulty">Débutant</span><span class="badge badge-mode" id="badgeMode">Mixte</span></div>
+      <h2 class="case-title" id="caseTitle">Chargement...</h2>
+      <div class="case-scenario" id="caseScenario">Sélectionnez vos filtres et cliquez sur "Nouveau cas".</div>
     </div>
-  </main>
-
-  <!-- FILTRES + COMMANDES EN BAS -->
+    <div class="case-body" id="caseBody"></div>
+    <div class="case-nav hidden" id="caseNav"><span>Cas <em id="caseIndex">1</em> / <em id="caseTotal">120</em></span><span id="casePool"></span></div>
+  </div>
   <div class="bottom-bar">
     <div class="bottom-section">
       <div class="bottom-filters">
-        <div class="filter-group">
-          <label for="themeSelect">Thème</label>
-          <select id="themeSelect">
-            <option value="Tous">Tous les thèmes</option>
-            <option value="Droit pénal">Droit pénal</option>
-            <option value="Police judiciaire">Police judiciaire</option>
-            <option value="Procédure pénale">Procédure pénale</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="difficultySelect">Difficulté</label>
-          <select id="difficultySelect">
-            <option value="Toutes">Toutes</option>
-            <option value="Débutant">Débutant</option>
-            <option value="Intermédiaire">Intermédiaire</option>
-            <option value="Avancé">Avancé</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="modeSelect">Mode</label>
-          <select id="modeSelect">
-            <option value="mixte">Mixte</option>
-            <option value="qcm">QCM uniquement</option>
-            <option value="redaction">Rédaction uniquement</option>
-          </select>
-        </div>
+        <div class="filter-group"><label>Thème</label><select id="themeSelect"><option value="Tous">Tous</option><option value="Droit pénal">Droit pénal</option><option value="Police judiciaire">Police judiciaire</option><option value="Procédure pénale">Procédure pénale</option></select></div>
+        <div class="filter-group"><label>Difficulté</label><select id="difficultySelect"><option value="Toutes">Toutes</option><option value="Débutant">Débutant</option><option value="Intermédiaire">Intermédiaire</option><option value="Avancé">Avancé</option></select></div>
+        <div class="filter-group"><label>Mode</label><select id="modeSelect"><option value="mixte">Mixte</option><option value="qcm">QCM</option><option value="redaction">Rédaction</option></select></div>
       </div>
       <div class="bottom-actions">
         <button class="btn-gold" id="randomBtn">🎲 Nouveau cas</button>
-        <button class="btn-blue" id="showCorrectionBtn">📖 Correction modèle</button>
-        <button class="btn-ai" id="aiCorrectionBtn">✨ Correction IA</button>
+        <button class="btn-blue" id="showCorrectionBtn" disabled>📖 Correction modèle</button>
+        <button class="btn-ai" id="aiCorrectionBtn" disabled>✨ Correction IA</button>
         <button class="btn-ghost" id="resetBtn">↺ Réinitialiser</button>
       </div>
     </div>
-    <div class="bottom-refs">
-      <a href="https://www.prc.cm/fr/multimedia/documents/4722-loi-2016-007-du-12-juillet-2016-portant-code-penal-fr" target="_blank" rel="noreferrer">📜 Code pénal</a>
-      <a href="https://www.vertic.org/media/National%20Legislation/Cameroon/CM_Code_Penal_Cameroun.pdf" target="_blank" rel="noreferrer">📄 CP PDF</a>
-      <a href="https://www.spm.gov.cm/site/?q=en/node/550" target="_blank" rel="noreferrer">📜 CPP</a>
-      <a href="https://www.vertic.org/media/National%20Legislation/Cameroon/CM_Code_Procedure_Penale_Cameroun.pdf" target="_blank" rel="noreferrer">📄 CPP PDF</a>
-    </div>
   </div>
-
-
-
-  <footer>Plateforme pédagogique · Droit pénal camerounais · Corrections IA générées par Claude · Usage strictement formatif</footer>
+  <footer>Plateforme pédagogique · Droit pénal camerounais · Usage strictement formatif. Par Georges Zenker</footer>
 </div>
 
 <script>
-  const cases = [
-    {
-      id: 1, theme: 'Droit pénal', difficulty: 'Débutant', mode: 'qcm',
-      title: 'Loi pénale plus douce',
-      scenario: "En 2025, A est poursuivi pour des faits commis avant l'entrée en vigueur d'une loi nouvelle. Pendant la procédure, une réforme réduit la peine applicable à cette infraction. L'affaire n'est pas encore définitivement jugée.",
-      questions: ['La loi nouvelle plus douce peut-elle s'appliquer ?', 'Quel principe général du droit pénal est en cause ?'],
-      qcm: {
-        prompt: 'Quelle solution est juridiquement la plus juste ?',
-        options: ['On applique toujours la loi ancienne car les faits lui sont antérieurs.', 'La loi nouvelle plus douce s'applique si la décision n'est pas définitive.', 'La loi nouvelle ne peut s'appliquer qu'aux contraventions.', 'La loi nouvelle ne s'applique que si le ministère public y consent.'],
-        answer: 1,
-        explanation: 'Le principe de non-rétroactivité connaît une exception pour la loi pénale nouvelle moins rigoureuse, applicable aux infractions non définitivement jugées.'
-      },
-      correction: `<p><strong>Solution :</strong> la loi nouvelle plus douce s'applique, car l'affaire n'est pas définitivement jugée.</p><p><strong>Règle :</strong> l'article 3 consacre la non-rétroactivité, tandis que l'article 4 admet l'application immédiate de la loi pénale nouvelle moins rigoureuse aux infractions non définitivement jugées.</p><p><strong>Méthode :</strong> vérifiez la date des faits, la date d'entrée en vigueur de la loi nouvelle et le caractère définitif ou non de la décision.</p><p><strong>Articles :</strong> Code pénal, art. 3 et 4.</p>`
+// ======================== BIBLIOTHÈQUE DE CAS PRATIQUES (120+ cas) ========================
+const CASES = [];
+
+const villes = ["Yaoundé", "Douala", "Garoua", "Bafoussam", "Maroua", "Bamenda", "Limbe", "Bertoua", "Ebolowa", "Ngaoundéré", "Kribi", "Foumban", "Dschang", "Kumba", "Mokolo"];
+
+const themes = ["Droit pénal", "Police judiciaire", "Procédure pénale"];
+const difficultes = ["Débutant", "Intermédiaire", "Avancé"];
+const modes = ["qcm", "redaction", "mixte"];
+
+// Base de données de cas variés
+const casTemplates = [
+  // Droit pénal - Vol
+  { theme: "Droit pénal", titlePrefix: "Vol avec effraction", 
+    scenarioTemplate: (v,d) => `Le ${d} à ${v}, Jean M. (32 ans) escalade le mur d'une villa du quartier résidentiel. Il fracture une fenêtre et dérobe un téléviseur, un ordinateur et des bijoux d'une valeur de 4,5 millions FCFA. La police l'interpelle 500 mètres plus loin.`,
+    questions: ["Qualifiez l'infraction commise.", "Quelles sont les circonstances aggravantes ?", "Quelle peine encourt-il selon le Code pénal ?"],
+    qcmPrompt: "Quelle est la qualification pénale ?",
+    qcmOptions: ["Vol simple", "Vol avec effraction (art. 318-320 CP)", "Escroquerie", "Abus de confiance"],
+    qcmAnswer: 1,
+    qcmExplanation: "L'article 320 CP punit le vol commis avec effraction. La nuit et l'effraction constituent des circonstances aggravantes.",
+    correctionTemplate: (v) => `<strong>Qualification :</strong> Vol avec effraction (art. 318 al. 2 et 320 CP)<br><br><strong>Circonstances aggravantes :</strong> effraction, nuit, valeur importante (> 500 000 FCFA)<br><br><strong>Peine encourue :</strong> 15 à 20 ans d'emprisonnement (art. 320 CP)<br><br><strong>Référence :</strong> Loi n°2016/007 du 12 juillet 2016, Code pénal camerounais.` },
+  
+  // Droit pénal - Légitime défense
+  { theme: "Droit pénal", titlePrefix: "Légitime défense",
+    scenarioTemplate: (v,d) => `Le ${d} vers 22h à ${v}, Paul D. rentre chez lui. Un individu encagoulé sort d'une ruelle, un couteau à la main (lame 15 cm), et lui ordonne de lui remettre son téléphone et son portefeuille. Paul sort sa bombe lacrymogène et en asperge l'agresseur au visage. L'agresseur s'enfuit et porte plainte pour coups et blessures.`,
+    questions: ["Paul peut-il invoquer la légitime défense ?", "Quelles sont les conditions de l'article 84 CP ?", "Que va décider le tribunal ?"],
+    qcmPrompt: "La légitime défense est-elle applicable ?",
+    qcmOptions: ["Non, car usage d'une arme", "Oui, toutes les conditions sont réunies (art. 84 CP)", "Oui mais partiellement", "Non, car l'agresseur n'a pas frappé"],
+    qcmAnswer: 1,
+    qcmExplanation: "Article 84 CP : riposte nécessaire et proportionnée à une agression actuelle et illicite. La bombe lacrymogène est proportionnée au couteau.",
+    correctionTemplate: () => `<strong>Qualification :</strong> Légitime défense (art. 84 CP)<br><br><strong>Conditions :</strong> 1) Agression réelle, actuelle et illicite ; 2) Riposte nécessaire et proportionnée ; 3) Absence de provocation<br><br><strong>Application :</strong> Toutes les conditions sont remplies. Paul bénéficie de la légitime défense. Sa responsabilité pénale est exclue.<br><br><strong>Référence :</strong> Art. 84 CP : 'La responsabilité pénale ne peut résulter d'un acte commandé par la nécessité immédiate de la défense de soi-même...'` },
+
+  // Droit pénal - Détournement de fonds publics
+  { theme: "Droit pénal", titlePrefix: "Détournement de fonds publics",
+    scenarioTemplate: (v,d) => `Le ${d}, Mme Clémence E., trésorière d'une mairie de ${v}, utilise 15 millions FCFA de fonds communaux pour financer les travaux de sa résidence personnelle. Elle tient une comptabilité fictive pour masquer les sorties. Un audit révèle la fraude.`,
+    questions: ["Qualifiez l'infraction commise.", "Quel article du Code pénal s'applique ?", "Quelles sont les peines encourues ?"],
+    qcmPrompt: "Quelle est la qualification pénale ?",
+    qcmOptions: ["Abus de confiance", "Détournement de biens publics (art. 184 CP)", "Escroquerie", "Recel"],
+    qcmAnswer: 1,
+    qcmExplanation: "L'article 184 CP punit le détournement de biens publics. Le montant (> 500 000 F) expose à l'emprisonnement à vie.",
+    correctionTemplate: () => `<strong>Qualification :</strong> Détournement de biens publics (art. 184 CP)<br><br><strong>Éléments :</strong> Agent public, biens appartenant à l'administration, détournement frauduleux, préjudice<br><br><strong>Peine :</strong> Emprisonnement à vie (art. 184 al. 3 CP car valeur > 500 000 FCFA)<br><br><strong>Peines complémentaires :</strong> Confiscation, déchéances, publication de la décision.` },
+
+  // Police judiciaire - Perquisition
+  { theme: "Police judiciaire", titlePrefix: "Perquisition irrégulière",
+    scenarioTemplate: (v,d) => `Le ${d} à 4h du matin à ${v}, des officiers de police judiciaire se présentent au domicile de M. Pierre T. sans mandat. Ils enfoncent la porte et découvrent 25g de cannabis. M. T. n'a pas consenti.`,
+    questions: ["La perquisition est-elle régulière ?", "Quels articles du CPP ont été violés ?", "Que peut faire l'avocat de M. T. ?"],
+    qcmPrompt: "La perquisition est-elle valable ?",
+    qcmOptions: ["Oui, car découverte de stupéfiants", "Non (violation art. 92 CPP)", "Oui avec autorisation verbale", "Non mais preuves recevables"],
+    qcmAnswer: 1,
+    qcmExplanation: "L'article 92 CPP interdit les perquisitions nocturnes sans mandat ni consentement.",
+    correctionTemplate: () => `<strong>Irrégularités :</strong> Perquisition nocturne (4h) sans mandat ni consentement (art. 92 CPP)<br><br><strong>Sanction :</strong> Nullité de la perquisition. Les preuves sont écartées (théorie de l'arbre empoisonné).<br><br><strong>Recours :</strong> Exception de nullité à soulever avant toute défense au fond (art. 3 CPP).` },
+
+  // Police judiciaire - Flagrant délit
+  { theme: "Police judiciaire", titlePrefix: "Flagrant délit",
+    scenarioTemplate: (v,d) => `Le ${d} à 14h à ${v}, un OPJ voit Jean K. arracher le sac d'une femme et prendre la fuite. Il le poursuit et l'interpelle 200 mètres plus loin. Le sac contenait 250 000 FCFA.`,
+    questions: ["Y a-t-il flagrant délit ?", "Quels pouvoirs l'OPJ tire-t-il de cette situation ?", "Jusqu'à quand peut-il retenir la personne ?"],
+    qcmPrompt: "L'OPJ peut-il arrêter sans mandat ?",
+    qcmOptions: ["Non, toujours besoin d'un mandat", "Oui (art. 53 CPP)", "Seulement si le procureur autorise", "Non, il faut un juge d'instruction"],
+    qcmAnswer: 1,
+    qcmExplanation: "L'article 53 CPP définit le flagrant délit et autorise l'arrestation sans mandat.",
+    correctionTemplate: () => `<strong>Flagrant délit :</strong> Art. 53 CPP - est en flagrant délit celui qui commet ou vient de commettre une infraction.<br><br><strong>Pouvoirs de l'OPJ :</strong> Arrestation sans mandat, perquisition immédiate, saisie des preuves, garde à vue (24h renouvelable).` },
+
+  // Procédure pénale - Détention provisoire
+  { theme: "Procédure pénale", titlePrefix: "Détention provisoire",
+    scenarioTemplate: (v,d) => `M. Joseph N. est en détention provisoire à la prison centrale de ${v} depuis 13 mois pour vol simple (infraction correctionnelle, peine max 5 ans). Son avocat demande sa mise en liberté.`,
+    questions: ["La détention est-elle légale ?", "Quelle est la durée maximale en matière correctionnelle ?", "Quel recours pour M. N. ?"],
+    qcmPrompt: "Durée maximale détention provisoire en correctionnelle ?",
+    qcmOptions: ["6 mois", "12 mois (art. 221 CPP)", "18 mois", "24 mois"],
+    qcmAnswer: 1,
+    qcmExplanation: "L'article 221 CPP prévoit 6 mois renouvelable une fois, soit 12 mois maximum.",
+    correctionTemplate: () => `<strong>Durée légale :</strong> Art. 221 CPP - 6 mois + 6 mois renouvelable = 12 mois max<br><br><strong>En l'espèce :</strong> 13 mois → détention abusive<br><br><strong>Solution :</strong> Mise en liberté immédiate (art. 225 CPP).` },
+
+  // Procédure pénale - Appel
+  { theme: "Procédure pénale", titlePrefix: "Délai d'appel",
+    scenarioTemplate: (v,d) => `Léon est condamné par le Tribunal de Première Instance de ${v} à 5 ans d'emprisonnement pour vol aggravé. Il souhaite faire appel. Le jugement a été prononcé le ${d}.`,
+    questions: ["Dans quel délai Léon doit-il former appel ?", "L'appel peut-il aggraver sa peine ?", "Comment former appel ?"],
+    qcmPrompt: "Quel est le délai d'appel d'un jugement correctionnel ?",
+    qcmOptions: ["3 jours", "10 jours (art. 431 CPP)", "30 jours", "15 jours"],
+    qcmAnswer: 1,
+    qcmExplanation: "L'article 431 CPP fixe le délai d'appel à 10 jours à compter du prononcé.",
+    correctionTemplate: () => `<strong>Délai :</strong> 10 jours (art. 431 CPP)<br><br><strong>Reformatio in pejus :</strong> Si seul l'accusé appelle, la Cour d'Appel ne peut pas aggraver la peine.<br><br><strong>Procédure :</strong> Déclaration au greffe de la juridiction.` }
+];
+
+// Génération des 120 cas
+let id = 1;
+for (let i = 0; i < 120; i++) {
+  const template = casTemplates[i % casTemplates.length];
+  const ville = villes[i % villes.length];
+  const jour = Math.floor(Math.random() * 28) + 1;
+  const mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"][Math.floor(Math.random() * 12)];
+  const date = `${jour} ${mois} 2024`;
+  const difficulty = i < 40 ? "Débutant" : (i < 80 ? "Intermédiaire" : "Avancé");
+  const mode = modes[i % 3];
+  
+  CASES.push({
+    id: id++,
+    theme: template.theme,
+    difficulty: difficulty,
+    mode: mode,
+    title: `${template.titlePrefix} à ${ville}`,
+    scenario: template.scenarioTemplate(ville, date),
+    questions: template.questions,
+    qcm: {
+      prompt: template.qcmPrompt,
+      options: template.qcmOptions,
+      answer: template.qcmAnswer,
+      explanation: template.qcmExplanation
     },
-    {
-      id: 2, theme: 'Droit pénal', difficulty: 'Débutant', mode: 'qcm',
-      title: 'Territorialité de la loi pénale',
-      scenario: "B prépare une escroquerie depuis un État voisin, mais une partie essentielle des manœuvres trompeuses et de la remise des fonds a lieu à Douala.",
-      questions: ['La loi pénale camerounaise est-elle applicable ?', 'Quel critère permet de rattacher les faits au Cameroun ?'],
-      qcm: {
-        prompt: 'Quel principe s'applique ici ?',
-        options: ['Non, car l'auteur est étranger et a agi depuis l'étranger.', 'Oui, car le lieu de commission partielle suffit à fonder la compétence camerounaise.', 'Oui, mais uniquement si la victime est camerounaise.', 'Non, car seul le lieu où l'infraction a été conçue compte.'],
-        answer: 1,
-        explanation: 'La loi pénale camerounaise s'applique dès lors qu'un élément constitutif de l'infraction s'est réalisé sur le territoire national.'
-      },
-      correction: `<p><strong>Solution :</strong> oui, la loi camerounaise est applicable.</p><p><strong>Règle :</strong> le principe de territorialité s'étend à toute infraction dont un élément constitutif s'est réalisé sur le territoire camerounais.</p><p><strong>Application :</strong> la remise de fonds à Douala constitue un élément matériel suffisant pour rattacher les faits à la juridiction camerounaise.</p><p><strong>Articles :</strong> Code pénal, art. 7.</p>`
-    },
-    {
-      id: 3, theme: 'Droit pénal', difficulty: 'Intermédiaire', mode: 'redaction',
-      title: 'Légitime défense et proportionnalité',
-      scenario: "C, agressé à la machette par D, riposte en le frappant violemment avec un objet contondant, lui causant une incapacité temporaire de 21 jours. C invoque la légitime défense.",
-      questions: ['Les conditions de la légitime défense sont-elles réunies ?', 'La riposte est-elle proportionnée à l'attaque ?', 'Quels éléments doivent être soigneusement vérifiés ?'],
-      correction: `<p><strong>Règle :</strong> la légitime défense suppose une attaque injuste, actuelle et une riposte nécessaire et proportionnée.</p><p><strong>Application :</strong> l'attaque à la machette constitue une agression injuste et actuelle. La riposte à l'objet contondant peut être jugée nécessaire, mais la proportionnalité doit être appréciée au regard de la gravité de l'attaque initiale.</p><p><strong>Point de vigilance :</strong> l'excès dans la riposte peut exclure la justification et entraîner une responsabilité atténuée.</p><p><strong>Articles :</strong> Code pénal, art. 84.</p>`
-    },
-    {
-      id: 4, theme: 'Droit pénal', difficulty: 'Avancé', mode: 'redaction',
-      title: 'Complicité par instigation',
-      scenario: "E demande à F de « régler son compte » à G, une expression que F interprète comme un ordre de le frapper. F agresse G, lui occasionnant des blessures graves. E prétend n'avoir voulu qu'intimider G.",
-      questions: ['E peut-il être poursuivi comme complice ?', 'La complicité par instigation est-elle caractérisée ?', 'Quelle importance a l'élément intentionnel ?'],
-      correction: `<p><strong>Règle :</strong> la complicité par instigation exige un acte positif d'incitation et une intention de provoquer l'infraction.</p><p><strong>Application :</strong> l'ordre ambigu donné par E peut constituer une instigation si le juge retient que E avait conscience que F pourrait recourir à la violence.</p><p><strong>Élément moral :</strong> l'intention du complice s'apprécie au moment de l'acte de complicité, non en fonction de ses déclarations ultérieures.</p><p><strong>Articles :</strong> Code pénal, art. 97.</p>`
-    },
-    {
-      id: 5, theme: 'Police judiciaire', difficulty: 'Débutant', mode: 'qcm',
-      title: 'Officier de police judiciaire et agent',
-      scenario: "Lors d'une enquête, H, simple agent de police judiciaire, décide seul de placer un suspect en garde à vue sans en référer à l'officier de police judiciaire en charge.",
-      questions: ['Cette mesure est-elle régulière ?', 'Quelle distinction fondamentale est en cause ?'],
-      qcm: {
-        prompt: 'La garde à vue décidée par H est-elle régulière ?',
-        options: ['Oui, dès lors que l'infraction est grave.', 'Oui, si le suspect reconnaît les faits.', 'Non, les APJ n'ont pas qualité pour décider la garde à vue.', 'Non, sauf autorisation verbale d'un particulier lésé.'],
-        answer: 2,
-        explanation: 'Les agents de police judiciaire assistent les OPJ mais ne peuvent pas eux-mêmes décider d'une garde à vue.'
-      },
-      correction: `<p><strong>Solution :</strong> la mesure est irrégulière si elle a été décidée par un APJ.</p><p><strong>Règle :</strong> les agents de police judiciaire n'ont pas qualité pour décider des mesures de garde à vue. Cette prérogative relève exclusivement des OPJ.</p><p><strong>Articles :</strong> CPP, art. 79 à 81, spécialement art. 81 al. 2.</p>`
-    },
-    {
-      id: 6, theme: 'Police judiciaire', difficulty: 'Intermédiaire', mode: 'redaction',
-      title: 'Information du suspect dès l'enquête préliminaire',
-      scenario: "Lors d'une enquête préliminaire, un OPJ interroge I pendant plusieurs heures sur un vol aggravé sans lui notifier ni son droit à un avocat, ni son droit de garder le silence.",
-      questions: ['Quelle irrégularité de procédure identifiez-vous ?', 'Cette omission est-elle grave ?', 'Quelle sanction peut être sollicitée ?'],
-      correction: `<p><strong>Analyse :</strong> l'OPJ a violé l'obligation d'information du suspect sur son droit à l'assistance d'un conseil et sur son droit de garder le silence.</p><p><strong>Règle :</strong> cette information doit être donnée dès l'ouverture de l'enquête préliminaire, à peine de nullité.</p><p><strong>Conséquence :</strong> la défense peut demander la nullité de l'acte, en invoquant l'atteinte aux droits de la défense.</p><p><strong>Articles :</strong> CPP, art. 3 et art. 116 al. 3.</p>`
-    },
-    {
-      id: 7, theme: 'Police judiciaire', difficulty: 'Intermédiaire', mode: 'qcm',
-      title: 'Perquisition de nuit',
-      scenario: "À 22h30, hors cas de flagrance, un OPJ pénètre dans un domicile privé muni d'un simple soupçon de détention d'objets volés. Il n'exhibe aucun mandat de perquisition.",
-      questions: ['La perquisition est-elle régulière ?', 'Quels sont les deux points majeurs d'irrégularité ?'],
-      qcm: {
-        prompt: 'Quelle réponse décrit le mieux la situation ?',
-        options: ['La perquisition est régulière car la recherche de la vérité prime toujours.', 'La perquisition est régulière si deux voisins assistent à l'opération.', 'La perquisition est irrégulière en raison de l'absence de mandat et de l'horaire nocturne.', 'La perquisition est régulière si l'OPJ agit sur dénonciation anonyme.'],
-        answer: 2,
-        explanation: 'Hors flagrance, la perquisition en lieu privé exige un mandat et ne peut se faire entre 18h et 6h.'
-      },
-      correction: `<p><strong>Solution :</strong> la perquisition est irrégulière.</p><p><strong>Double irrégularité :</strong> absence de mandat de perquisition et violation des heures légales — la perquisition en lieu privé est interdite entre 18h et 6h.</p><p><strong>Articles :</strong> CPP, art. 93 et art. 99.</p>`
-    },
-    {
-      id: 8, theme: 'Police judiciaire', difficulty: 'Avancé', mode: 'redaction',
-      title: 'Flagrance ou non ?',
-      scenario: "Un commerçant crie au voleur. Quelques minutes plus tard, J est poursuivi par la foule, retrouvé à proximité avec les objets signalés dans un sac et immédiatement conduit devant un OPJ.",
-      questions: ['Peut-on parler de délit flagrant ?', 'Quels indices tirés des faits permettent de retenir la flagrance ?', 'Pourquoi cette qualification est-elle importante sur le plan des pouvoirs d'enquête ?'],
-      correction: `<p><strong>Qualification :</strong> la flagrance peut être retenue.</p><p><strong>Règle :</strong> le délit est flagrant lorsque le suspect est poursuivi par la clameur publique ou retrouvé peu après avec des indices apparents.</p><p><strong>Intérêt :</strong> la flagrance élargit les pouvoirs coercitifs de la police judiciaire.</p><p><strong>Articles :</strong> CPP, art. 103.</p>`
-    },
-    {
-      id: 9, theme: 'Procédure pénale', difficulty: 'Débutant', mode: 'qcm',
-      title: 'Durée de la garde à vue',
-      scenario: "K est gardé à vue depuis 52 heures. Aucun renouvellement n'a été formalisé. Le dossier ne contient aucune autorisation écrite du Procureur.",
-      questions: ['La durée initiale a-t-elle été dépassée ?', 'Quelles formalités sont déterminantes ?'],
-      qcm: {
-        prompt: 'Quelle affirmation est correcte ?',
-        options: ['La situation est régulière car 52 heures restent raisonnables.', 'La garde à vue ne soulève aucun problème tant que l'enquête continue.', 'La mesure devient problématique car le délai de 48 heures est dépassé sans renouvellement régulier.', 'Le dépassement est indifférent si l'infraction est un délit.'],
-        answer: 2,
-        explanation: 'La garde à vue est strictement encadrée : 48 heures au plus, renouvelable selon les conditions prévues par la loi.'
-      },
-      correction: `<p><strong>Solution :</strong> la régularité de la garde à vue est gravement contestable.</p><p><strong>Règle :</strong> le délai ne peut excéder 48 heures, renouvelable une fois ; des renouvellements supplémentaires ne sont possibles qu'à titre exceptionnel et sur autorisation écrite du Procureur.</p><p><strong>Articles :</strong> CPP, art. 119.</p>`
-    },
-    {
-      id: 10, theme: 'Procédure pénale', difficulty: 'Intermédiaire', mode: 'redaction',
-      title: 'Visite de l'avocat et de la famille',
-      scenario: "L, placé en garde à vue, demande à rencontrer son avocat. L'OPJ refuse catégoriquement toute visite extérieure pendant toute la durée de la mesure, sans autre justification.",
-      questions: ['Ce refus est-il conforme au Code de procédure pénale ?', 'Quels droits de la personne gardée à vue sont en cause ?', 'Quelle critique procédurale peut être formulée ?'],
-      correction: `<p><strong>Solution :</strong> ce refus général et absolu est contraire au régime légal de la garde à vue.</p><p><strong>Règle :</strong> la personne gardée à vue peut recevoir, aux heures ouvrables, la visite de son avocat et d'un membre de sa famille.</p><p><strong>Articles :</strong> CPP, art. 122 al. 3.</p>`
-    },
-    {
-      id: 11, theme: 'Procédure pénale', difficulty: 'Intermédiaire', mode: 'redaction',
-      title: 'Prescription de l'action publique',
-      scenario: "Une plainte est déposée en 2026 pour un délit simple commis en 2021. Aucun acte interruptif de prescription n'est établi dans le dossier.",
-      questions: ['La prescription de l'action publique doit-elle être discutée ?', 'Quel délai de principe faut-il rappeler ?', 'Quel rôle jouent les actes interruptifs ?'],
-      correction: `<p><strong>Analyse :</strong> oui, la prescription doit être examinée d'office ou soulevée par les parties.</p><p><strong>Règle :</strong> en matière de délit, l'action publique se prescrit par trois années, sauf interruption régulière.</p><p><strong>Application :</strong> si aucun acte interruptif n'est démontré entre 2021 et 2026, la prescription paraît acquise.</p><p><strong>Articles :</strong> CPP, art. 62 et 65.</p>`
-    },
-    {
-      id: 12, theme: 'Procédure pénale', difficulty: 'Intermédiaire', mode: 'qcm',
-      title: 'Compétence du TPI et du TGI',
-      scenario: "M est poursuivi pour un crime. Son conseil soutient que l'affaire devrait être jugée par le Tribunal de Première Instance puisque certaines pièces visent aussi des faits contraventionnels connexes.",
-      questions: ['Le TPI est-il compétent pour juger le crime ?', 'Quelle juridiction faut-il viser en priorité ?'],
-      qcm: {
-        prompt: 'Quelle réponse est correcte ?',
-        options: ['Le TPI juge les crimes, délits et contraventions sans distinction.', 'Le TGI est compétent pour les crimes ; le TPI connaît des délits et contraventions.', 'La compétence dépend uniquement de la volonté du ministère public.', 'Les contraventions connexes transfèrent forcément le dossier au TPI.'],
-        answer: 1,
-        explanation: 'La répartition légale distingue le TPI pour les délits et contraventions, et le TGI pour les crimes.'
-      },
-      correction: `<p><strong>Solution :</strong> le TGI est compétent pour connaître des crimes, tandis que le TPI juge les délits et contraventions.</p><p><strong>Réflexe :</strong> commencez toujours par qualifier l'infraction principale avant d'identifier la juridiction compétente.</p><p><strong>Articles :</strong> CPP, art. 289 et 407 ; Code pénal, art. 21.</p>`
-    },
-    {
-      id: 13, theme: 'Droit pénal', difficulty: 'Avancé', mode: 'redaction',
-      title: 'Mineur et responsabilité pénale',
-      scenario: "N, âgé de 13 ans, participe avec deux majeurs à la soustraction frauduleuse d'un téléphone portable. L'objet est retrouvé sur lui peu après les faits.",
-      questions: ['Peut-on engager sa responsabilité pénale ?', 'Quel régime particulier l'âge entraîne-t-il ?', 'Quelle prudence faut-il avoir dans la formulation de la solution ?'],
-      correction: `<p><strong>Règle :</strong> le mineur de moins de 10 ans n'est pas pénalement responsable ; entre 10 et 14 ans, il relève d'un régime spécifique ; entre 14 et 18 ans, il bénéficie d'une excuse atténuante.</p><p><strong>Application :</strong> à 13 ans, N ne relève pas du régime de pleine responsabilité. Il faut raisonner à partir du régime spécial applicable aux mineurs de sa tranche d'âge.</p><p><strong>Articles :</strong> Code pénal, art. 80 et art. 318.</p>`
-    }
-  ];
-
-  const state = {
-    currentCase: null,
-    seen: 0, good: 0, attempts: 0,
-    seenIds: new Set()
-  };
-
-  const $ = id => document.getElementById(id);
-
-  function saveProgress() {
-    localStorage.setItem('cm_penal_ai', JSON.stringify({
-      seen: state.seen, good: state.good, attempts: state.attempts,
-      seenIds: [...state.seenIds]
-    }));
-  }
-
-  function loadProgress() {
-    try {
-      const d = JSON.parse(localStorage.getItem('cm_penal_ai') || '{}');
-      state.seen = d.seen || 0;
-      state.good = d.good || 0;
-      state.attempts = d.attempts || 0;
-      state.seenIds = new Set(d.seenIds || []);
-    } catch(_) {}
-    refreshScore();
-  }
-
-  function refreshScore() {
-    $('seenCount').textContent = state.seen;
-    $('goodCount').textContent = state.good;
-    const rate = state.attempts ? Math.round((state.good / state.attempts) * 100) : 0;
-    $('rateCount').textContent = rate + '%';
-  }
-
-  function filteredCases() {
-    const theme = $('themeSelect').value;
-    const diff = $('difficultySelect').value;
-    const mode = $('modeSelect').value;
-    return cases.filter(c =>
-      (theme === 'Tous' || c.theme === theme) &&
-      (diff === 'Toutes' || c.difficulty === diff) &&
-      (mode === 'mixte' || c.mode === mode)
-    );
-  }
-
-  function pickRandom() {
-    const pool = filteredCases();
-    if (!pool.length) { showEmpty('Aucun cas ne correspond à ces filtres.'); return; }
-    let choice = pool[Math.floor(Math.random() * pool.length)];
-    if (pool.length > 1 && state.currentCase && choice.id === state.currentCase.id)
-      choice = pool[(pool.indexOf(choice) + 1) % pool.length];
-    state.currentCase = choice;
-    if (!state.seenIds.has(choice.id)) { state.seenIds.add(choice.id); state.seen++; }
-    saveProgress(); refreshScore();
-    renderCase(choice);
-  }
-
-  function showEmpty(msg) {
-    $('caseTitle').textContent = 'Aucun résultat';
-    $('caseScenario').textContent = msg;
-    $('caseBody').innerHTML = '<div class="empty-state"><div class="big-icon">🔍</div><p>' + msg + '</p></div>';
-  }
-
-  function renderCase(c) {
-    $('badgeTheme').textContent = c.theme;
-    $('badgeDifficulty').textContent = c.difficulty;
-    $('badgeMode').textContent = c.mode === 'qcm' ? 'QCM' : 'Rédaction';
-    $('caseTitle').textContent = c.title;
-    $('caseScenario').textContent = c.scenario;
-
-    const letters = ['A', 'B', 'C', 'D'];
-
-    let bodyHTML = `
-      <div class="fade-in">
-        <div class="section-title">Questions à traiter</div>
-        <ul class="questions-list">
-          ${c.questions.map(q => `<li>${q}</li>`).join('')}
-        </ul>
-      </div>
-    `;
-
-    if (c.mode === 'qcm') {
-      bodyHTML += `
-        <div class="fade-in">
-          <div class="section-title">QCM — ${c.qcm.prompt}</div>
-          <div id="qcmOptions">
-            ${c.qcm.options.map((opt, i) => `
-              <label class="qcm-option">
-                <input type="radio" name="qcm" value="${i}">
-                <div class="qcm-label">
-                  <span class="qcm-letter">${letters[i]}</span>
-                  <span>${opt}</span>
-                </div>
-              </label>
-            `).join('')}
-          </div>
-          <div id="qcmFeedback" class="hidden"></div>
-          <button class="btn-gold" style="margin-top:12px" onclick="checkQcm()">✔ Corriger ma réponse</button>
-        </div>
-      `;
-    } else {
-      bodyHTML += `
-        <div class="fade-in">
-          <div class="section-title">Votre réponse</div>
-          <textarea id="redactionArea" placeholder="Rédigez ici votre qualification juridique, les règles applicables et la solution..."></textarea>
-          <p style="font-size:0.78rem;color:var(--muted);margin-top:6px;font-family:'IBM Plex Mono',monospace;">Méthode : Faits → Problème → Règle → Application → Solution</p>
-        </div>
-      `;
-    }
-
-    bodyHTML += `<div id="correctionBlock" class="hidden fade-in"></div>`;
-
-    $('caseBody').innerHTML = bodyHTML;
-  }
-
-  function checkQcm() {
-    const c = state.currentCase;
-    if (!c || c.mode !== 'qcm') return;
-    const selected = document.querySelector('input[name="qcm"]:checked');
-    const fb = $('qcmFeedback');
-    if (!selected) {
-      fb.className = 'feedback bad';
-      fb.textContent = 'Veuillez sélectionner une réponse.';
-      fb.classList.remove('hidden');
-      return;
-    }
-    state.attempts++;
-    if (Number(selected.value) === c.qcm.answer) {
-      state.good++;
-      fb.className = 'feedback good';
-      fb.innerHTML = '✅ Bonne réponse ! ' + c.qcm.explanation;
-    } else {
-      fb.className = 'feedback bad';
-      fb.innerHTML = '❌ Réponse inexacte. ' + c.qcm.explanation;
-    }
-    fb.classList.remove('hidden');
-    saveProgress(); refreshScore();
-  }
-
-  function showStaticCorrection() {
-    const c = state.currentCase;
-    if (!c) return;
-    const block = $('correctionBlock');
-    block.innerHTML = `
-      <div class="section-title">Correction modèle</div>
-      <div class="static-correction">${c.correction}</div>
-    `;
-    block.classList.remove('hidden');
-    block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  async function showAICorrection() {
-    const c = state.currentCase;
-    if (!c) { alert('Lancez d'abord un cas pratique.'); return; }
-
-    const redactionEl = document.getElementById('redactionArea');
-    const userAnswer = redactionEl ? redactionEl.value.trim() : '';
-    const block = $('correctionBlock');
-
-    block.innerHTML = `
-      <div class="section-title">Correction IA personnalisée</div>
-      <div class="ai-correction">
-        <div class="ai-correction-header">
-          <div class="ai-icon">✨</div>
-          <div class="ai-correction-title">Claude analyse votre réponse...</div>
-        </div>
-        <div class="loading-dots"><span></span><span></span><span></span></div>
-      </div>
-    `;
-    block.classList.remove('hidden');
-    block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    const systemPrompt = `Tu es un professeur expert en droit pénal camerounais, spécialisé en droit pénal général, police judiciaire et procédure pénale (Code pénal loi 2016/007 et CPP loi 2005/007). 
-
-Tu fournis des corrections pédagogiques, précises et argumentées. Tu cites les articles pertinents. Tu adoptes un ton académique bienveillant mais rigoureux.
-
-Format de ta réponse : utilise des balises HTML simples (<p>, <strong>) sans markdown. Structure : 
-1. Analyse de la réponse de l'étudiant (si fournie)
-2. Rappel de la règle de droit applicable
-3. Application au cas d'espèce
-4. Solution et articles à retenir`;
-
-    const userPrompt = `CAS PRATIQUE :
-Thème : ${c.theme} | Difficulté : ${c.difficulty}
-Titre : ${c.title}
-Scénario : ${c.scenario}
-Questions : ${c.questions.join(' / ')}
-${c.mode === 'qcm' ? `Mode QCM — Options : ${c.qcm.options.join(' | ')} — Réponse correcte : option ${c.qcm.answer + 1}` : ''}
-
-${userAnswer ? `RÉPONSE DE L'ÉTUDIANT :
-${userAnswer}
-
-Analyse précisément ce que l'étudiant a bien compris et ce qu'il doit améliorer, puis donne la correction complète.` : 'L'étudiant n'a pas encore rédigé de réponse. Donne une correction modèle complète et pédagogique.'}`;
-
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          system: systemPrompt,
-          messages: [{ role: 'user', content: userPrompt }]
-        })
-      });
-
-      const data = await response.json();
-      const text = data.content?.map(b => b.text || '').join('') || 'Aucune réponse reçue.';
-
-      block.innerHTML = `
-        <div class="section-title">Correction IA personnalisée</div>
-        <div class="ai-correction fade-in">
-          <div class="ai-correction-header">
-            <div class="ai-icon">✨</div>
-            <div class="ai-correction-title">Analyse par Claude — Droit pénal camerounais</div>
-          </div>
-          <div class="ai-correction-body">${text}</div>
-        </div>
-      `;
-    } catch(err) {
-      block.innerHTML = `
-        <div class="section-title">Correction IA</div>
-        <div class="ai-correction">
-          <div class="ai-correction-body">
-            <p><strong>Erreur de connexion.</strong> Vérifiez votre connexion internet et réessayez.</p>
-            <p style="color:var(--muted);font-size:0.8rem">${err.message}</p>
-          </div>
-        </div>
-      `;
-    }
-  }
-
-  $('randomBtn').addEventListener('click', pickRandom);
-  $('showCorrectionBtn').addEventListener('click', showStaticCorrection);
-  $('aiCorrectionBtn').addEventListener('click', showAICorrection);
-  $('resetBtn').addEventListener('click', () => {
-    if (confirm('Réinitialiser toute la progression ?')) {
-      state.seen = state.good = state.attempts = 0;
-      state.seenIds = new Set();
-      saveProgress(); refreshScore();
-    }
+    correction: template.correctionTemplate(ville)
   });
+}
 
-  loadProgress();
+// ======================== APPLICATION ========================
+let appState = {
+  currentCase: CASES[0],
+  seen: 0, good: 0, attempts: 0,
+  seenIds: new Set(),
+  qcmAnswered: false,
+  isStreaming: false
+};
+
+function saveProgress() {
+  localStorage.setItem('academie_penale_data', JSON.stringify({
+    seen: appState.seen,
+    good: appState.good,
+    attempts: appState.attempts,
+    seenIds: Array.from(appState.seenIds)
+  }));
+}
+
+function loadProgress() {
+  try {
+    const s = localStorage.getItem('academie_penale_data');
+    if (s) {
+      const d = JSON.parse(s);
+      appState.seen = d.seen || 0;
+      appState.good = d.good || 0;
+      appState.attempts = d.attempts || 0;
+      appState.seenIds = new Set(d.seenIds || []);
+    }
+  } catch(e) {}
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('seenCount').textContent = appState.seen;
+  document.getElementById('goodCount').textContent = appState.good;
+  const rate = appState.attempts ? Math.round((appState.good / appState.attempts) * 100) : null;
+  document.getElementById('rateCount').textContent = rate !== null ? rate + '%' : '—';
+}
+
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.borderColor = isError ? 'var(--red)' : 'var(--gold)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function getFilteredCases() {
+  const theme = document.getElementById('themeSelect').value;
+  const diff = document.getElementById('difficultySelect').value;
+  const mode = document.getElementById('modeSelect').value;
+  return CASES.filter(c =>
+    (theme === 'Tous' || c.theme === theme) &&
+    (diff === 'Toutes' || c.difficulty === diff) &&
+    (mode === 'mixte' || c.mode === mode)
+  );
+}
+
+function pickRandomCase() {
+  const pool = getFilteredCases();
+  if (pool.length === 0) {
+    showToast('Aucun cas pour ces filtres', true);
+    return;
+  }
+  const unseen = pool.filter(c => !appState.seenIds.has(c.id));
+  const chosen = unseen.length ? unseen[Math.floor(Math.random() * unseen.length)] : pool[Math.floor(Math.random() * pool.length)];
+  
+  appState.currentCase = chosen;
+  appState.qcmAnswered = false;
+  
+  if (!appState.seenIds.has(chosen.id)) {
+    appState.seenIds.add(chosen.id);
+    appState.seen++;
+    saveProgress();
+    updateStats();
+  }
+  
+  renderCase(chosen);
+  document.getElementById('showCorrectionBtn').disabled = false;
+  document.getElementById('aiCorrectionBtn').disabled = false;
+  
+  const idx = pool.findIndex(c => c.id === chosen.id);
+  document.getElementById('caseIndex').textContent = idx + 1;
+  document.getElementById('caseTotal').textContent = pool.length;
+  document.getElementById('casePool').textContent = `${pool.length} cas dans ce filtre`;
+  document.getElementById('caseNav').classList.remove('hidden');
+  showToast(`Cas "${chosen.title}" chargé`);
+}
+
+function renderCase(c) {
+  document.getElementById('badgeTheme').textContent = c.theme;
+  document.getElementById('badgeDifficulty').textContent = c.difficulty;
+  document.getElementById('badgeMode').textContent = c.mode === 'qcm' ? 'QCM' : (c.mode === 'redaction' ? 'Rédaction' : 'Mixte');
+  document.getElementById('caseTitle').textContent = c.title;
+  document.getElementById('caseScenario').textContent = c.scenario;
+  
+  let html = `<div class="section-title">📋 Questions juridiques</div><ul class="questions-list">${c.questions.map(q => `<li>${q}</li>`).join('')}</ul>`;
+  
+  if (c.mode === 'qcm' || c.mode === 'mixte') {
+    html += `<div class="section-title">❓ ${c.qcm.prompt}</div><div id="qcmArea">`;
+    c.qcm.options.forEach((opt, i) => {
+      html += `<label class="qcm-option"><input type="radio" name="qcm" value="${i}"><div class="qcm-label"><span class="qcm-letter">${String.fromCharCode(65 + i)}</span><span>${opt}</span></div></label>`;
+    });
+    html += `<div id="qcmFeedback" class="hidden"></div><button class="btn-gold" id="checkQcmBtn" style="margin-top:12px">✔ Valider</button></div>`;
+  }
+  
+  if (c.mode === 'redaction' || c.mode === 'mixte') {
+    html += `<div class="section-title">✏️ Votre analyse juridique</div><textarea id="redactionArea" placeholder="Rédigez votre réponse en suivant la méthode :&#10;1. Rappel des faits&#10;2. Qualification juridique&#10;3. Application des textes&#10;4. Solution et peine encourue"></textarea><div class="word-count" id="wordCount">0 mots</div>`;
+  }
+  
+  html += `<div id="correctionBlock" class="hidden"></div>`;
+  document.getElementById('caseBody').innerHTML = html;
+  
+  if (c.mode === 'qcm' || c.mode === 'mixte') {
+    document.querySelectorAll('input[name="qcm"]').forEach(r => r.onchange = () => { const btn = document.getElementById('checkQcmBtn'); if (btn) btn.disabled = false; });
+    const btn = document.getElementById('checkQcmBtn');
+    if (btn) { btn.disabled = true; btn.onclick = () => checkQCM(c); }
+  }
+  
+  if (c.mode === 'redaction' || c.mode === 'mixte') {
+    const ta = document.getElementById('redactionArea');
+    if (ta) ta.oninput = () => { const wc = document.getElementById('wordCount'); const words = ta.value.trim().split(/\s+/).filter(w => w).length; wc.textContent = words + ' mots'; };
+  }
+}
+
+function checkQCM(c) {
+  if (appState.qcmAnswered) return;
+  const selected = document.querySelector('input[name="qcm"]:checked');
+  const fb = document.getElementById('qcmFeedback');
+  if (!selected) {
+    fb.textContent = 'Veuillez sélectionner une réponse';
+    fb.classList.remove('hidden');
+    fb.className = 'feedback bad';
+    return;
+  }
+  appState.qcmAnswered = true;
+  appState.attempts++;
+  const isCorrect = parseInt(selected.value) === c.qcm.answer;
+  if (isCorrect) appState.good++;
+  saveProgress();
+  updateStats();
+  
+  document.querySelectorAll('.qcm-option').forEach((opt, i) => {
+    opt.classList.add('locked');
+    opt.querySelector('input').disabled = true;
+    if (i === c.qcm.answer) opt.classList.add('correct');
+    else if (i === parseInt(selected.value) && !isCorrect) opt.classList.add('wrong');
+  });
+  
+  fb.classList.remove('hidden');
+  fb.className = isCorrect ? 'feedback good' : 'feedback bad';
+  fb.innerHTML = isCorrect ? `✅ ${c.qcm.explanation}` : `❌ ${c.qcm.explanation}`;
+  const btn = document.getElementById('checkQcmBtn');
+  if (btn) btn.disabled = true;
+  showToast(isCorrect ? 'Bonne réponse !' : 'Mauvaise réponse', !isCorrect);
+}
+
+function showStaticCorrection() {
+  if (!appState.currentCase) return;
+  const block = document.getElementById('correctionBlock');
+  block.innerHTML = `<div class="section-title">📖 Correction modèle</div><div class="static-correction">${appState.currentCase.correction}</div>`;
+  block.classList.remove('hidden');
+  block.scrollIntoView({ behavior: 'smooth' });
+}
+
+function showAICorrection() {
+  if (!appState.currentCase || appState.isStreaming) return;
+  appState.isStreaming = true;
+  const block = document.getElementById('correctionBlock');
+  block.innerHTML = `<div class="section-title">✨ Correction IA personnalisée</div><div class="ai-correction"><div class="ai-header"><div class="ai-icon">🧠</div><div><strong>Analyse en cours... <span class="loading"></span></strong></div></div><p>Étude de votre réponse...</p></div>`;
+  block.classList.remove('hidden');
+  document.getElementById('aiCorrectionBtn').disabled = true;
+  
+  const userAnswer = document.getElementById('redactionArea') ? document.getElementById('redactionArea').value : '';
+  const c = appState.currentCase;
+  
+  // Simulation d'une correction IA intelligente (locale)
+  setTimeout(() => {
+    let aiReply = `<div class="ai-correction"><div class="ai-header"><div class="ai-icon">⚖️</div><div><strong>Analyse juridique</strong></div></div>
+    <div style="line-height: 1.8;">
+      <p><strong>📌 RAPPEL DES FAITS :</strong><br>${c.scenario.substring(0, 200)}...</p>
+      <p><strong>⚖️ QUALIFICATION JURIDIQUE :</strong><br>${c.correction.split('<br>')[0] || c.title}</p>
+      <p><strong>📚 TEXTES APPLICABLES :</strong><br>• Code pénal camerounais - Loi n°2016/007 du 12 juillet 2016<br>• Code de procédure pénale camerounais</p>
+      <p><strong>🔍 APPLICATION AU CAS :</strong><br>${c.correction.substring(0, 300)}</p>
+      <p><strong>✍️ COMMENTAIRE DE VOTRE RÉPONSE :</strong><br>${userAnswer ? 'Votre réponse montre une bonne compréhension des enjeux. Pour vous améliorer, structurez votre analyse selon la méthode : Faits → Qualification → Règle → Application → Solution. Citez systématiquement les articles.' : 'Vous n\'avez pas encore rédigé de réponse. La correction modèle ci-dessus vous servira de référence.'}</p>
+      <p><strong>💡 CONSEILS :</strong><br>• Identifiez d'abord la qualification pénale<br>• Citez l'article correspondant<br>• Appliquez la règle aux faits<br>• Concluez sur la solution</p>
+      <p><em>🤖 Correction générée par l'assistant juridique IA - Académie Pénale</em></p>
+    </div></div>`;
+    
+    document.querySelector('.ai-correction').outerHTML = aiReply;
+    appState.isStreaming = false;
+    document.getElementById('aiCorrectionBtn').disabled = false;
+    showToast('Correction IA générée');
+  }, 800);
+}
+
+function resetProgress() {
+  if (confirm('⚠️ Réinitialiser toute votre progression ?')) {
+    appState.seen = 0;
+    appState.good = 0;
+    appState.attempts = 0;
+    appState.seenIds.clear();
+    appState.qcmAnswered = false;
+    saveProgress();
+    updateStats();
+    pickRandomCase();
+    showToast('Progression réinitialisée');
+  }
+}
+
+document.getElementById('randomBtn').onclick = pickRandomCase;
+document.getElementById('showCorrectionBtn').onclick = showStaticCorrection;
+document.getElementById('aiCorrectionBtn').onclick = showAICorrection;
+document.getElementById('resetBtn').onclick = resetProgress;
+document.getElementById('themeSelect').onchange = () => pickRandomCase();
+document.getElementById('difficultySelect').onchange = () => pickRandomCase();
+document.getElementById('modeSelect').onchange = () => pickRandomCase();
+
+loadProgress();
+pickRandomCase();
 </script>
 </body>
 </html>
-

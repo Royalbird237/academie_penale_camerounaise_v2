@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Académie Pénale — Cas pratiques · Droit camerounais</title>
+  <title>Académie Pénale — Cas illimités · API Mistral AI · Droit camerounais</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -169,17 +169,95 @@
     footer { text-align: center; margin-top: 32px; font-size: 0.7rem; color: var(--muted); padding: 16px; }
     .loading { display: inline-block; width: 16px; height: 16px; border: 2px solid var(--gold); border-radius: 50%; border-top-color: transparent; animation: spin 0.8s linear infinite; margin-left: 8px; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .doc-ref { background: var(--surface2); border-radius: 8px; padding: 8px 12px; margin-top: 10px; font-size: 0.75rem; color: var(--blue); border-left: 2px solid var(--gold); }
+    
+    /* Pop-up d'avertissement */
+    .warning-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+    }
+    .warning-modal {
+      background: var(--surface);
+      border: 1px solid var(--red);
+      border-radius: var(--radius);
+      max-width: 500px;
+      width: 90%;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .warning-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .warning-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .warning-message {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    .warning-message strong {
+      color: var(--gold);
+    }
+    .warning-checkbox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+    }
+    .warning-checkbox input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .warning-btn {
+      background: var(--gold);
+      color: #0b0f1a;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .warning-btn:hover {
+      transform: scale(1.02);
+      filter: brightness(1.1);
+    }
   </style>
 </head>
 <body>
-<div class="toast" id="toast">✅ Plateforme prête</div>
+<div class="toast" id="toast">✅ API Mistral AI · Cas illimités</div>
 <div class="wrapper">
   <header class="header">
     <div class="header-left">
       <h1>Académie <em>Pénale</em></h1>
-      <div class="header-subtitle">// Cas pratiques · Droit pénal camerounais</div>
+      <div class="header-subtitle">// Cas illimités · API Mistral AI · Droit camerounais</div>
     </div>
-    <div class="ai-badge"><span class="dot"></span> Bibliothèque de 120+ cas</div>
+    <div class="ai-badge"><span class="dot"></span> Mistral AI Active</div>
   </header>
   <div class="stats-bar">
     <div class="stat-box"><div class="stat-icon">📚</div><div class="stat-info"><div class="label">Cas étudiés</div><div class="value" id="seenCount">0</div></div></div>
@@ -188,18 +266,24 @@
   </div>
   <div class="case-card">
     <div class="case-header">
-      <div class="case-badges"><span class="badge badge-theme" id="badgeTheme">Droit pénal</span><span class="badge badge-difficulty" id="badgeDifficulty">Débutant</span><span class="badge badge-mode" id="badgeMode">Mixte</span></div>
-      <h2 class="case-title" id="caseTitle">Chargement...</h2>
-      <div class="case-scenario" id="caseScenario">Sélectionnez vos filtres et cliquez sur "Nouveau cas".</div>
+      <div class="case-badges"><span class="badge badge-theme" id="badgeTheme">—</span><span class="badge badge-difficulty" id="badgeDifficulty">—</span><span class="badge badge-mode" id="badgeMode">—</span></div>
+      <h2 class="case-title" id="caseTitle">Bienvenue</h2>
+      <div class="case-scenario" id="caseScenario">Cliquez sur "Nouveau cas" pour générer un cas pratique.</div>
     </div>
-    <div class="case-body" id="caseBody"></div>
-    <div class="case-nav hidden" id="caseNav"><span>Cas <em id="caseIndex">1</em> / <em id="caseTotal">120</em></span><span id="casePool"></span></div>
+    <div class="case-body" id="caseBody">
+      <div style="text-align:center; padding:40px; color: var(--muted);">
+        <div style="font-size: 48px; margin-bottom: 16px;">⚖️</div>
+        <p>Cas pratiques illimités générés par Mistral AI.</p>
+        <p style="margin-top: 12px;">Sélectionnez vos filtres et cliquez sur "Nouveau cas".</p>
+      </div>
+    </div>
+    <div class="case-nav hidden" id="caseNav"><span>Cas généré par IA</span><span id="casePool"></span></div>
   </div>
   <div class="bottom-bar">
     <div class="bottom-section">
       <div class="bottom-filters">
-        <div class="filter-group"><label>Thème</label><select id="themeSelect"><option value="Tous">Tous</option><option value="Droit pénal">Droit pénal</option><option value="Police judiciaire">Police judiciaire</option><option value="Procédure pénale">Procédure pénale</option></select></div>
-        <div class="filter-group"><label>Difficulté</label><select id="difficultySelect"><option value="Toutes">Toutes</option><option value="Débutant">Débutant</option><option value="Intermédiaire">Intermédiaire</option><option value="Avancé">Avancé</option></select></div>
+        <div class="filter-group"><label>Thème</label><select id="themeSelect"><option value="Droit pénal">Droit pénal</option><option value="Police judiciaire">Police judiciaire</option><option value="Procédure pénale">Procédure pénale</option></select></div>
+        <div class="filter-group"><label>Difficulté</label><select id="difficultySelect"><option value="Débutant">Débutant</option><option value="Intermédiaire">Intermédiaire</option><option value="Avancé">Avancé</option></select></div>
         <div class="filter-group"><label>Mode</label><select id="modeSelect"><option value="mixte">Mixte</option><option value="qcm">QCM</option><option value="redaction">Rédaction</option></select></div>
       </div>
       <div class="bottom-actions">
@@ -214,206 +298,272 @@
 </div>
 
 <script>
-// ======================== BIBLIOTHÈQUE DE CAS PRATIQUES (120+ cas) ========================
-const CASES = [];
-
-const villes = ["Yaoundé", "Douala", "Garoua", "Bafoussam", "Maroua", "Bamenda", "Limbe", "Bertoua", "Ebolowa", "Ngaoundéré", "Kribi", "Foumban", "Dschang", "Kumba", "Mokolo"];
-
-const themes = ["Droit pénal", "Police judiciaire", "Procédure pénale"];
-const difficultes = ["Débutant", "Intermédiaire", "Avancé"];
-const modes = ["qcm", "redaction", "mixte"];
-
-// Base de données de cas variés
-const casTemplates = [
-  // Droit pénal - Vol
-  { theme: "Droit pénal", titlePrefix: "Vol avec effraction", 
-    scenarioTemplate: (v,d) => `Le ${d} à ${v}, Jean M. (32 ans) escalade le mur d'une villa du quartier résidentiel. Il fracture une fenêtre et dérobe un téléviseur, un ordinateur et des bijoux d'une valeur de 4,5 millions FCFA. La police l'interpelle 500 mètres plus loin.`,
-    questions: ["Qualifiez l'infraction commise.", "Quelles sont les circonstances aggravantes ?", "Quelle peine encourt-il selon le Code pénal ?"],
-    qcmPrompt: "Quelle est la qualification pénale ?",
-    qcmOptions: ["Vol simple", "Vol avec effraction (art. 318-320 CP)", "Escroquerie", "Abus de confiance"],
-    qcmAnswer: 1,
-    qcmExplanation: "L'article 320 CP punit le vol commis avec effraction. La nuit et l'effraction constituent des circonstances aggravantes.",
-    correctionTemplate: (v) => `<strong>Qualification :</strong> Vol avec effraction (art. 318 al. 2 et 320 CP)<br><br><strong>Circonstances aggravantes :</strong> effraction, nuit, valeur importante (> 500 000 FCFA)<br><br><strong>Peine encourue :</strong> 15 à 20 ans d'emprisonnement (art. 320 CP)<br><br><strong>Référence :</strong> Loi n°2016/007 du 12 juillet 2016, Code pénal camerounais.` },
+// ======================== POP-UP D'AVERTISSEMENT ========================
+function showWarningPopup() {
+  // Vérifier si l'utilisateur a déjà accepté l'avertissement
+  const warningAccepted = localStorage.getItem('warning_ia_accepted');
+  if (warningAccepted === 'true') return;
   
-  // Droit pénal - Légitime défense
-  { theme: "Droit pénal", titlePrefix: "Légitime défense",
-    scenarioTemplate: (v,d) => `Le ${d} vers 22h à ${v}, Paul D. rentre chez lui. Un individu encagoulé sort d'une ruelle, un couteau à la main (lame 15 cm), et lui ordonne de lui remettre son téléphone et son portefeuille. Paul sort sa bombe lacrymogène et en asperge l'agresseur au visage. L'agresseur s'enfuit et porte plainte pour coups et blessures.`,
-    questions: ["Paul peut-il invoquer la légitime défense ?", "Quelles sont les conditions de l'article 84 CP ?", "Que va décider le tribunal ?"],
-    qcmPrompt: "La légitime défense est-elle applicable ?",
-    qcmOptions: ["Non, car usage d'une arme", "Oui, toutes les conditions sont réunies (art. 84 CP)", "Oui mais partiellement", "Non, car l'agresseur n'a pas frappé"],
-    qcmAnswer: 1,
-    qcmExplanation: "Article 84 CP : riposte nécessaire et proportionnée à une agression actuelle et illicite. La bombe lacrymogène est proportionnée au couteau.",
-    correctionTemplate: () => `<strong>Qualification :</strong> Légitime défense (art. 84 CP)<br><br><strong>Conditions :</strong> 1) Agression réelle, actuelle et illicite ; 2) Riposte nécessaire et proportionnée ; 3) Absence de provocation<br><br><strong>Application :</strong> Toutes les conditions sont remplies. Paul bénéficie de la légitime défense. Sa responsabilité pénale est exclue.<br><br><strong>Référence :</strong> Art. 84 CP : 'La responsabilité pénale ne peut résulter d'un acte commandé par la nécessité immédiate de la défense de soi-même...'` },
-
-  // Droit pénal - Détournement de fonds publics
-  { theme: "Droit pénal", titlePrefix: "Détournement de fonds publics",
-    scenarioTemplate: (v,d) => `Le ${d}, Mme Clémence E., trésorière d'une mairie de ${v}, utilise 15 millions FCFA de fonds communaux pour financer les travaux de sa résidence personnelle. Elle tient une comptabilité fictive pour masquer les sorties. Un audit révèle la fraude.`,
-    questions: ["Qualifiez l'infraction commise.", "Quel article du Code pénal s'applique ?", "Quelles sont les peines encourues ?"],
-    qcmPrompt: "Quelle est la qualification pénale ?",
-    qcmOptions: ["Abus de confiance", "Détournement de biens publics (art. 184 CP)", "Escroquerie", "Recel"],
-    qcmAnswer: 1,
-    qcmExplanation: "L'article 184 CP punit le détournement de biens publics. Le montant (> 500 000 F) expose à l'emprisonnement à vie.",
-    correctionTemplate: () => `<strong>Qualification :</strong> Détournement de biens publics (art. 184 CP)<br><br><strong>Éléments :</strong> Agent public, biens appartenant à l'administration, détournement frauduleux, préjudice<br><br><strong>Peine :</strong> Emprisonnement à vie (art. 184 al. 3 CP car valeur > 500 000 FCFA)<br><br><strong>Peines complémentaires :</strong> Confiscation, déchéances, publication de la décision.` },
-
-  // Police judiciaire - Perquisition
-  { theme: "Police judiciaire", titlePrefix: "Perquisition irrégulière",
-    scenarioTemplate: (v,d) => `Le ${d} à 4h du matin à ${v}, des officiers de police judiciaire se présentent au domicile de M. Pierre T. sans mandat. Ils enfoncent la porte et découvrent 25g de cannabis. M. T. n'a pas consenti.`,
-    questions: ["La perquisition est-elle régulière ?", "Quels articles du CPP ont été violés ?", "Que peut faire l'avocat de M. T. ?"],
-    qcmPrompt: "La perquisition est-elle valable ?",
-    qcmOptions: ["Oui, car découverte de stupéfiants", "Non (violation art. 92 CPP)", "Oui avec autorisation verbale", "Non mais preuves recevables"],
-    qcmAnswer: 1,
-    qcmExplanation: "L'article 92 CPP interdit les perquisitions nocturnes sans mandat ni consentement.",
-    correctionTemplate: () => `<strong>Irrégularités :</strong> Perquisition nocturne (4h) sans mandat ni consentement (art. 92 CPP)<br><br><strong>Sanction :</strong> Nullité de la perquisition. Les preuves sont écartées (théorie de l'arbre empoisonné).<br><br><strong>Recours :</strong> Exception de nullité à soulever avant toute défense au fond (art. 3 CPP).` },
-
-  // Police judiciaire - Flagrant délit
-  { theme: "Police judiciaire", titlePrefix: "Flagrant délit",
-    scenarioTemplate: (v,d) => `Le ${d} à 14h à ${v}, un OPJ voit Jean K. arracher le sac d'une femme et prendre la fuite. Il le poursuit et l'interpelle 200 mètres plus loin. Le sac contenait 250 000 FCFA.`,
-    questions: ["Y a-t-il flagrant délit ?", "Quels pouvoirs l'OPJ tire-t-il de cette situation ?", "Jusqu'à quand peut-il retenir la personne ?"],
-    qcmPrompt: "L'OPJ peut-il arrêter sans mandat ?",
-    qcmOptions: ["Non, toujours besoin d'un mandat", "Oui (art. 53 CPP)", "Seulement si le procureur autorise", "Non, il faut un juge d'instruction"],
-    qcmAnswer: 1,
-    qcmExplanation: "L'article 53 CPP définit le flagrant délit et autorise l'arrestation sans mandat.",
-    correctionTemplate: () => `<strong>Flagrant délit :</strong> Art. 53 CPP - est en flagrant délit celui qui commet ou vient de commettre une infraction.<br><br><strong>Pouvoirs de l'OPJ :</strong> Arrestation sans mandat, perquisition immédiate, saisie des preuves, garde à vue (24h renouvelable).` },
-
-  // Procédure pénale - Détention provisoire
-  { theme: "Procédure pénale", titlePrefix: "Détention provisoire",
-    scenarioTemplate: (v,d) => `M. Joseph N. est en détention provisoire à la prison centrale de ${v} depuis 13 mois pour vol simple (infraction correctionnelle, peine max 5 ans). Son avocat demande sa mise en liberté.`,
-    questions: ["La détention est-elle légale ?", "Quelle est la durée maximale en matière correctionnelle ?", "Quel recours pour M. N. ?"],
-    qcmPrompt: "Durée maximale détention provisoire en correctionnelle ?",
-    qcmOptions: ["6 mois", "12 mois (art. 221 CPP)", "18 mois", "24 mois"],
-    qcmAnswer: 1,
-    qcmExplanation: "L'article 221 CPP prévoit 6 mois renouvelable une fois, soit 12 mois maximum.",
-    correctionTemplate: () => `<strong>Durée légale :</strong> Art. 221 CPP - 6 mois + 6 mois renouvelable = 12 mois max<br><br><strong>En l'espèce :</strong> 13 mois → détention abusive<br><br><strong>Solution :</strong> Mise en liberté immédiate (art. 225 CPP).` },
-
-  // Procédure pénale - Appel
-  { theme: "Procédure pénale", titlePrefix: "Délai d'appel",
-    scenarioTemplate: (v,d) => `Léon est condamné par le Tribunal de Première Instance de ${v} à 5 ans d'emprisonnement pour vol aggravé. Il souhaite faire appel. Le jugement a été prononcé le ${d}.`,
-    questions: ["Dans quel délai Léon doit-il former appel ?", "L'appel peut-il aggraver sa peine ?", "Comment former appel ?"],
-    qcmPrompt: "Quel est le délai d'appel d'un jugement correctionnel ?",
-    qcmOptions: ["3 jours", "10 jours (art. 431 CPP)", "30 jours", "15 jours"],
-    qcmAnswer: 1,
-    qcmExplanation: "L'article 431 CPP fixe le délai d'appel à 10 jours à compter du prononcé.",
-    correctionTemplate: () => `<strong>Délai :</strong> 10 jours (art. 431 CPP)<br><br><strong>Reformatio in pejus :</strong> Si seul l'accusé appelle, la Cour d'Appel ne peut pas aggraver la peine.<br><br><strong>Procédure :</strong> Déclaration au greffe de la juridiction.` }
-];
-
-// Génération des 120 cas
-let id = 1;
-for (let i = 0; i < 120; i++) {
-  const template = casTemplates[i % casTemplates.length];
-  const ville = villes[i % villes.length];
-  const jour = Math.floor(Math.random() * 28) + 1;
-  const mois = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"][Math.floor(Math.random() * 12)];
-  const date = `${jour} ${mois} 2024`;
-  const difficulty = i < 40 ? "Débutant" : (i < 80 ? "Intermédiaire" : "Avancé");
-  const mode = modes[i % 3];
+  const overlay = document.createElement('div');
+  overlay.className = 'warning-overlay';
+  overlay.innerHTML = `
+    <div class="warning-modal">
+      <div class="warning-icon">⚠️</div>
+      <div class="warning-title">Attention : L'IA peut se tromper</div>
+      <div class="warning-message">
+        L'intelligence artificielle utilisée pour générer les corrections peut <strong>confondre certains articles</strong> du Code pénal ou du Code de procédure pénale.
+        <br><br>
+        Il est <strong>fortement recommandé</strong> de toujours <strong>vérifier les articles cités</strong> dans les textes officiels avant de les utiliser pour vos révisions ou examens.
+        <br><br>
+        L'Académie Pénale vous invite à la prudence et à la vérification systématique des références juridiques.
+      </div>
+      <div class="warning-checkbox">
+        <input type="checkbox" id="dontShowAgain">
+        <label for="dontShowAgain">Ne plus afficher ce message</label>
+      </div>
+      <button class="warning-btn" id="closeWarningBtn">J'ai compris</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
   
-  CASES.push({
-    id: id++,
-    theme: template.theme,
-    difficulty: difficulty,
-    mode: mode,
-    title: `${template.titlePrefix} à ${ville}`,
-    scenario: template.scenarioTemplate(ville, date),
-    questions: template.questions,
-    qcm: {
-      prompt: template.qcmPrompt,
-      options: template.qcmOptions,
-      answer: template.qcmAnswer,
-      explanation: template.qcmExplanation
-    },
-    correction: template.correctionTemplate(ville)
-  });
+  document.getElementById('closeWarningBtn').onclick = () => {
+    const dontShow = document.getElementById('dontShowAgain').checked;
+    if (dontShow) {
+      localStorage.setItem('warning_ia_accepted', 'true');
+    }
+    overlay.remove();
+  };
 }
 
-// ======================== APPLICATION ========================
+// Afficher le pop-up au chargement de la page
+setTimeout(showWarningPopup, 500);
+
+// ======================== CONFIGURATION API MISTRAL AI ========================
+const MISTRAL_API_KEY = 'TSTlYdHui4PAsQLyaJJhJVjzZVt4ROKz';
+const MISTRAL_API_URL = 'https://api.mistral.ai/v1/chat/completions';
+
+// ======================== TEXTES OFFICIELS CAMEROUNAIS (version nettoyée) ========================
+const TEXTES_OFFICIELS = `CODE PENAL CAMEROUNAIS (LOI N°2016/007):
+- Art.84: Legitime defense - riposte proportionnee a une agression actuelle
+- Art.275: Meurtre - emprisonnement a vie
+- Art.276: Assassinat - mort (premeditation, empoisonnement, trafic d'organes)
+- Art.277: Blessures graves - 10 a 20 ans
+- Art.278: Coups mortels involontaires - 6 a 20 ans
+- Art.280: Blessures simples - 6 mois a 5 ans (ITT plus de 30 jours)
+- Art.281: Blessures legeres - 6 jours a 2 ans (ITT entre 8 et 30 jours)
+- Art.291: Arrestation/sequestration - 5 a 10 ans (10-20 ans si plus d'1 mois)
+- Art.318: Vol, abus de confiance, escroquerie - 5 a 10 ans + amende 100.000-1.000.000 F
+- Art.320: Vol aggrave - peines doublees (violences, arme, effraction, nuit)
+- Art.94: Tentative - punissable si commencement d'execution
+- Art.97: Complicite - puni comme auteur principal
+- Art.184: Detournement de biens publics - a vie si plus de 500.000 F
+- Art.74-1: Personnes morales penalement responsables
+
+CODE DE PROCEDURE PENALE (LOI N°2005/007):
+- Art.53: Flagrant delit - arrestation sans mandat possible
+- Art.92: Perquisition - avec mandat sauf flagrant delit
+- Art.99: Perquisition nocturne interdite entre 18h et 6h
+- Art.100: Nullite pour inobservation des formalites
+- Art.118-119: Garde a vue - 48h renouvelable une fois (96h max)
+- Art.221: Detention provisoire - 6 mois max en correctionnelle
+- Art.197: Commission rogatoire
+- Art.431: Delai d'appel - 10 jours
+- Art.3: Nullite absolue si atteinte aux droits de la defense
+- Art.65: Prescription - crime 10 ans, delit 3 ans, contravention 1 an`;
+
+// ======================== ÉTAT ========================
 let appState = {
-  currentCase: CASES[0],
+  currentCase: null,
   seen: 0, good: 0, attempts: 0,
   seenIds: new Set(),
   qcmAnswered: false,
+  isGenerating: false,
   isStreaming: false
 };
 
-function saveProgress() {
-  localStorage.setItem('academie_penale_data', JSON.stringify({
-    seen: appState.seen,
-    good: appState.good,
-    attempts: appState.attempts,
-    seenIds: Array.from(appState.seenIds)
-  }));
-}
-
-function loadProgress() {
+function saveProgress() { 
   try {
-    const s = localStorage.getItem('academie_penale_data');
-    if (s) {
-      const d = JSON.parse(s);
-      appState.seen = d.seen || 0;
-      appState.good = d.good || 0;
-      appState.attempts = d.attempts || 0;
-      appState.seenIds = new Set(d.seenIds || []);
-    }
+    localStorage.setItem('academie_penale_mistral', JSON.stringify({ 
+      seen: appState.seen, 
+      good: appState.good, 
+      attempts: appState.attempts, 
+      seenIds: Array.from(appState.seenIds) 
+    }));
   } catch(e) {}
-  updateStats();
 }
 
-function updateStats() {
-  document.getElementById('seenCount').textContent = appState.seen;
-  document.getElementById('goodCount').textContent = appState.good;
-  const rate = appState.attempts ? Math.round((appState.good / appState.attempts) * 100) : null;
-  document.getElementById('rateCount').textContent = rate !== null ? rate + '%' : '—';
+function loadProgress() { 
+  try { 
+    const s = localStorage.getItem('academie_penale_mistral'); 
+    if(s) { 
+      const d = JSON.parse(s); 
+      appState.seen = d.seen || 0; 
+      appState.good = d.good || 0; 
+      appState.attempts = d.attempts || 0; 
+      appState.seenIds = new Set(d.seenIds || []); 
+    } 
+  } catch(e) {} 
+  updateStats(); 
 }
 
-function showToast(msg, isError = false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.borderColor = isError ? 'var(--red)' : 'var(--gold)';
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+function updateStats() { 
+  document.getElementById('seenCount').textContent = appState.seen; 
+  document.getElementById('goodCount').textContent = appState.good; 
+  const rate = appState.attempts ? Math.round((appState.good / appState.attempts) * 100) : null; 
+  document.getElementById('rateCount').textContent = rate !== null ? rate + '%' : '—'; 
 }
 
-function getFilteredCases() {
+function showToast(msg, isError = false) { 
+  const t = document.getElementById('toast'); 
+  t.textContent = msg; 
+  t.style.borderColor = isError ? 'var(--red)' : 'var(--gold)'; 
+  t.classList.add('show'); 
+  setTimeout(() => t.classList.remove('show'), 2500); 
+}
+
+// ======================== GÉNÉRATION D'UN CAS PAR MISTRAL AI ========================
+async function generateCase() {
+  if (appState.isGenerating) return;
+  appState.isGenerating = true;
+  
   const theme = document.getElementById('themeSelect').value;
-  const diff = document.getElementById('difficultySelect').value;
+  const difficulty = document.getElementById('difficultySelect').value;
   const mode = document.getElementById('modeSelect').value;
-  return CASES.filter(c =>
-    (theme === 'Tous' || c.theme === theme) &&
-    (diff === 'Toutes' || c.difficulty === diff) &&
-    (mode === 'mixte' || c.mode === mode)
-  );
+  
+  document.getElementById('badgeTheme').textContent = theme;
+  document.getElementById('badgeDifficulty').textContent = difficulty;
+  document.getElementById('badgeMode').textContent = mode === 'qcm' ? 'QCM' : (mode === 'redaction' ? 'Rédaction' : 'Mixte');
+  document.getElementById('caseTitle').textContent = 'Génération en cours...';
+  document.getElementById('caseScenario').textContent = 'L\'IA prépare un nouveau cas pratique...';
+  document.getElementById('caseBody').innerHTML = `
+    <div style="text-align:center; padding:40px;">
+      <div class="loading" style="width:32px;height:32px;margin:0 auto 16px;"></div>
+      <p>⏳ Création d'un cas pratique sur mesure...</p>
+      <p style="font-size:0.8rem; margin-top:12px;">Thème: ${theme} | Difficulté: ${difficulty} | Mode: ${mode}</p>
+    </div>
+  `;
+  document.getElementById('caseNav').classList.add('hidden');
+  document.getElementById('showCorrectionBtn').disabled = true;
+  document.getElementById('aiCorrectionBtn').disabled = true;
+  
+  const villes = ["Yaounde", "Douala", "Garoua", "Bafoussam", "Maroua", "Bamenda", "Limbe", "Bertoua", "Ebolowa", "Ngaoundere"];
+  const ville = villes[Math.floor(Math.random() * villes.length)];
+  const jour = Math.floor(Math.random() * 28) + 1;
+  const mois = ["janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre"][Math.floor(Math.random() * 12)];
+  
+  const prompt = `Genere un cas pratique de ${difficulty} en ${theme} (droit camerounais). 
+Lieu: ${ville}, date: ${jour} ${mois} 2024. Mode: ${mode === 'mixte' ? 'QCM + redaction' : mode}.
+Cree un scenario realiste avec prenoms et noms camerounais.
+Reponds UNIQUEMENT au format JSON valide, sans aucun texte avant ou apres:
+
+{
+  "title": "titre du cas",
+  "scenario": "scenario detaille",
+  "questions": ["question1", "question2", "question3"],
+  "qcm": {
+    "prompt": "question du QCM",
+    "options": ["option A", "option B", "option C", "option D"],
+    "answer": 0,
+    "explanation": "explication"
+  },
+  "correction": "correction modele complete avec references aux articles"
+}`;
+
+  try {
+    const response = await fetch(MISTRAL_API_URL, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${MISTRAL_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'mistral-small-latest',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 1200,
+        temperature: 0.7
+      })
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`API Error ${response.status}: ${errorText.substring(0, 200)}`);
+    }
+    
+    const data = await response.json();
+    let content = data.choices?.[0]?.message?.content || '';
+    
+    content = content.trim();
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      let caseData;
+      try {
+        caseData = JSON.parse(jsonMatch[0]);
+      } catch(e) {
+        console.error("JSON parse error:", e);
+        caseData = {
+          title: `Cas pratique de ${theme} à ${ville}`,
+          scenario: `Le ${jour} ${mois} 2024, à ${ville}, un individu commet une infraction.`,
+          questions: ["Qualifiez les faits.", "Quelle peine encourt l'auteur ?", "Quels sont les textes applicables ?"],
+          qcm: { prompt: "Quelle est la qualification pénale ?", options: ["Option A", "Option B", "Option C", "Option D"], answer: 0, explanation: "Explication selon le Code pénal." },
+          correction: `Correction selon le Code pénal camerounais.`
+        };
+      }
+      
+      const newCase = {
+        id: Date.now(),
+        theme: theme,
+        difficulty: difficulty,
+        mode: mode,
+        title: caseData.title || `Cas pratique sur ${theme}`,
+        scenario: caseData.scenario || `Scénario à ${ville} le ${jour} ${mois} 2024.`,
+        questions: caseData.questions || ["Qualifiez les faits.", "Quelle peine encourt l'auteur ?", "Quels sont les textes applicables ?"],
+        qcm: caseData.qcm || {
+          prompt: "Quelle est la qualification pénale ?",
+          options: ["Option A", "Option B", "Option C", "Option D"],
+          answer: 0,
+          explanation: "Explication selon le Code pénal camerounais."
+        },
+        correction: caseData.correction || `<strong>Qualification :</strong> Selon le Code pénal camerounais.<br><div class="doc-ref">Reference : Code penal camerounais (Loi n°2016/007)</div>`
+      };
+      
+      appState.currentCase = newCase;
+      appState.qcmAnswered = false;
+      
+      if (!appState.seenIds.has(newCase.id)) {
+        appState.seenIds.add(newCase.id);
+        appState.seen++;
+        saveProgress();
+        updateStats();
+      }
+      
+      renderCase(newCase);
+      document.getElementById('showCorrectionBtn').disabled = false;
+      document.getElementById('aiCorrectionBtn').disabled = false;
+      document.getElementById('caseNav').classList.remove('hidden');
+      document.getElementById('casePool').textContent = `Genere par Mistral AI · Cas n°${appState.seen + 1}`;
+      showToast(`Cas genere : "${newCase.title}"`);
+    } else {
+      throw new Error('Format JSON invalide');
+    }
+  } catch (err) {
+    console.error('Erreur Mistral API:', err);
+    document.getElementById('caseBody').innerHTML = `
+      <div style="text-align:center; padding:40px; color: var(--red);">
+        <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+        <p>Erreur: ${err.message}</p>
+        <p style="margin-top: 12px;">Verifiez votre connexion et votre clé API Mistral.</p>
+        <button class="btn-gold" id="retryBtn" style="margin-top: 20px;">🔄 Reessayer</button>
+      </div>
+    `;
+    const retryBtn = document.getElementById('retryBtn');
+    if (retryBtn) retryBtn.onclick = () => generateCase();
+    showToast('Erreur de generation', true);
+  }
+  
+  appState.isGenerating = false;
 }
 
-function pickRandomCase() {
-  const pool = getFilteredCases();
-  if (pool.length === 0) {
-    showToast('Aucun cas pour ces filtres', true);
-    return;
-  }
-  const unseen = pool.filter(c => !appState.seenIds.has(c.id));
-  const chosen = unseen.length ? unseen[Math.floor(Math.random() * unseen.length)] : pool[Math.floor(Math.random() * pool.length)];
-  
-  appState.currentCase = chosen;
-  appState.qcmAnswered = false;
-  
-  if (!appState.seenIds.has(chosen.id)) {
-    appState.seenIds.add(chosen.id);
-    appState.seen++;
-    saveProgress();
-    updateStats();
-  }
-  
-  renderCase(chosen);
-  document.getElementById('showCorrectionBtn').disabled = false;
-  document.getElementById('aiCorrectionBtn').disabled = false;
-  
-  const idx = pool.findIndex(c => c.id === chosen.id);
-  document.getElementById('caseIndex').textContent = idx + 1;
-  document.getElementById('caseTotal').textContent = pool.length;
-  document.getElementById('casePool').textContent = `${pool.length} cas dans ce filtre`;
-  document.getElementById('caseNav').classList.remove('hidden');
-  showToast(`Cas "${chosen.title}" chargé`);
-}
-
+// ======================== AFFICHAGE ========================
 function renderCase(c) {
   document.getElementById('badgeTheme').textContent = c.theme;
   document.getElementById('badgeDifficulty').textContent = c.difficulty;
@@ -432,7 +582,7 @@ function renderCase(c) {
   }
   
   if (c.mode === 'redaction' || c.mode === 'mixte') {
-    html += `<div class="section-title">✏️ Votre analyse juridique</div><textarea id="redactionArea" placeholder="Rédigez votre réponse en suivant la méthode :&#10;1. Rappel des faits&#10;2. Qualification juridique&#10;3. Application des textes&#10;4. Solution et peine encourue"></textarea><div class="word-count" id="wordCount">0 mots</div>`;
+    html += `<div class="section-title">✏️ Votre analyse juridique</div><textarea id="redactionArea" placeholder="Redigez votre reponse en suivant la methode :&#10;1. Rappel des faits&#10;2. Qualification juridique&#10;3. Application des textes&#10;4. Solution et peine encourue"></textarea><div class="word-count" id="wordCount">0 mots</div>`;
   }
   
   html += `<div id="correctionBlock" class="hidden"></div>`;
@@ -454,12 +604,7 @@ function checkQCM(c) {
   if (appState.qcmAnswered) return;
   const selected = document.querySelector('input[name="qcm"]:checked');
   const fb = document.getElementById('qcmFeedback');
-  if (!selected) {
-    fb.textContent = 'Veuillez sélectionner une réponse';
-    fb.classList.remove('hidden');
-    fb.className = 'feedback bad';
-    return;
-  }
+  if (!selected) { fb.textContent = 'Veuillez sélectionner une réponse'; fb.classList.remove('hidden'); fb.className = 'feedback bad'; return; }
   appState.qcmAnswered = true;
   appState.attempts++;
   const isCorrect = parseInt(selected.value) === c.qcm.answer;
@@ -479,50 +624,88 @@ function checkQCM(c) {
   fb.innerHTML = isCorrect ? `✅ ${c.qcm.explanation}` : `❌ ${c.qcm.explanation}`;
   const btn = document.getElementById('checkQcmBtn');
   if (btn) btn.disabled = true;
-  showToast(isCorrect ? 'Bonne réponse !' : 'Mauvaise réponse', !isCorrect);
+  showToast(isCorrect ? 'Bonne reponse !' : 'Mauvaise reponse', !isCorrect);
 }
 
 function showStaticCorrection() {
   if (!appState.currentCase) return;
   const block = document.getElementById('correctionBlock');
-  block.innerHTML = `<div class="section-title">📖 Correction modèle</div><div class="static-correction">${appState.currentCase.correction}</div>`;
+  block.innerHTML = `<div class="section-title">📖 Correction modèle</div><div class="static-correction">${appState.currentCase.correction}<br><br><div class="doc-ref">Reference : Code penal camerounais (Loi n°2016/007) / Code de procedure penale (Loi n°2005/007)</div></div>`;
   block.classList.remove('hidden');
   block.scrollIntoView({ behavior: 'smooth' });
 }
 
-function showAICorrection() {
+// ======================== CORRECTION IA MISTRAL ========================
+async function showAICorrection() {
   if (!appState.currentCase || appState.isStreaming) return;
   appState.isStreaming = true;
   const block = document.getElementById('correctionBlock');
-  block.innerHTML = `<div class="section-title">✨ Correction IA personnalisée</div><div class="ai-correction"><div class="ai-header"><div class="ai-icon">🧠</div><div><strong>Analyse en cours... <span class="loading"></span></strong></div></div><p>Étude de votre réponse...</p></div>`;
+  block.innerHTML = `<div class="section-title">✨ Correction IA personnalisee (Mistral AI)</div><div class="ai-correction"><div class="ai-header"><div class="ai-icon">⚖️</div><div><strong>Consultation des textes officiels... <span class="loading"></span></strong></div></div><p>Analyse en cours...</p></div>`;
   block.classList.remove('hidden');
   document.getElementById('aiCorrectionBtn').disabled = true;
   
   const userAnswer = document.getElementById('redactionArea') ? document.getElementById('redactionArea').value : '';
   const c = appState.currentCase;
   
-  // Simulation d'une correction IA intelligente (locale)
-  setTimeout(() => {
-    let aiReply = `<div class="ai-correction"><div class="ai-header"><div class="ai-icon">⚖️</div><div><strong>Analyse juridique</strong></div></div>
-    <div style="line-height: 1.8;">
-      <p><strong>📌 RAPPEL DES FAITS :</strong><br>${c.scenario.substring(0, 200)}...</p>
-      <p><strong>⚖️ QUALIFICATION JURIDIQUE :</strong><br>${c.correction.split('<br>')[0] || c.title}</p>
-      <p><strong>📚 TEXTES APPLICABLES :</strong><br>• Code pénal camerounais - Loi n°2016/007 du 12 juillet 2016<br>• Code de procédure pénale camerounais</p>
-      <p><strong>🔍 APPLICATION AU CAS :</strong><br>${c.correction.substring(0, 300)}</p>
-      <p><strong>✍️ COMMENTAIRE DE VOTRE RÉPONSE :</strong><br>${userAnswer ? 'Votre réponse montre une bonne compréhension des enjeux. Pour vous améliorer, structurez votre analyse selon la méthode : Faits → Qualification → Règle → Application → Solution. Citez systématiquement les articles.' : 'Vous n\'avez pas encore rédigé de réponse. La correction modèle ci-dessus vous servira de référence.'}</p>
-      <p><strong>💡 CONSEILS :</strong><br>• Identifiez d'abord la qualification pénale<br>• Citez l'article correspondant<br>• Appliquez la règle aux faits<br>• Concluez sur la solution</p>
-      <p><em>🤖 Correction générée par l'assistant juridique IA - Académie Pénale</em></p>
-    </div></div>`;
+  const prompt = `Tu es professeur de droit penal camerounais.
+
+TEXTES OFFICIELS CAMEROUNAIS:
+${TEXTES_OFFICIELS}
+
+CAS PRATIQUE:
+Titre: ${c.title}
+Scenario: ${c.scenario.substring(0, 400)}
+Questions: ${c.questions.join(', ')}
+Correction modele: ${c.correction.substring(0, 300)}
+Reponse de l'etudiant: ${userAnswer || "Aucune reponse fournie"}
+
+⚠️ ATTENTION: Les articles cites par l'IA peuvent parfois etre errones. L'utilisateur est invite a verifier les references dans les textes officiels.
+
+Donne une correction complete avec:
+1. QUALIFICATION JURIDIQUE: qualification exacte + article precis
+2. CONDITIONS: enumere les conditions legales
+3. APPLICATION: applique la regle aux faits
+4. SOLUTION: decision du tribunal
+5. COMMENTAIRE: analyse la reponse de l'etudiant + conseils
+
+Cite les articles. Utilise HTML. Sois pedagogique.`;
+
+  try {
+    const response = await fetch(MISTRAL_API_URL, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${MISTRAL_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'mistral-small-latest',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 1200,
+        temperature: 0.3
+      })
+    });
     
-    document.querySelector('.ai-correction').outerHTML = aiReply;
-    appState.isStreaming = false;
-    document.getElementById('aiCorrectionBtn').disabled = false;
-    showToast('Correction IA générée');
-  }, 800);
+    if (!response.ok) {
+      throw new Error(`API Error ${response.status}`);
+    }
+    
+    const data = await response.json();
+    let aiReply = data.choices?.[0]?.message?.content || "Erreur de generation.";
+    aiReply = aiReply.replace(/\n/g, '<br>');
+    const aiHtml = `<div class="ai-correction"><div class="ai-header"><div class="ai-icon">📚</div><div><strong>Correction IA - Mistral AI</strong></div></div><div style="line-height: 1.8;">${aiReply}</div><br><hr><div class="doc-ref">⚠️ <strong>Attention :</strong> L'IA peut commettre des erreurs. Veuillez vérifier les articles cités dans les textes officiels.<br>Sources : Code penal camerounais (Loi n°2016/007) - Code de procedure penale (Loi n°2005/007)</div></div>`;
+    document.querySelector('.ai-correction').outerHTML = aiHtml;
+    showToast('Correction IA generee - Verifiez les references');
+  } catch (err) {
+    console.error('Erreur Mistral API correction:', err);
+    document.querySelector('.ai-correction').innerHTML = '<p>❌ Erreur de connexion a Mistral AI. Reessayez.</p>';
+    showToast('Erreur IA', true);
+  }
+  appState.isStreaming = false;
+  document.getElementById('aiCorrectionBtn').disabled = false;
 }
 
 function resetProgress() {
-  if (confirm('⚠️ Réinitialiser toute votre progression ?')) {
+  if (confirm('Reinitialiser toute progression ?')) {
     appState.seen = 0;
     appState.good = 0;
     appState.attempts = 0;
@@ -530,21 +713,23 @@ function resetProgress() {
     appState.qcmAnswered = false;
     saveProgress();
     updateStats();
-    pickRandomCase();
-    showToast('Progression réinitialisée');
+    generateCase();
+    showToast('Progression reinitialisee');
   }
 }
 
-document.getElementById('randomBtn').onclick = pickRandomCase;
+// ======================== EVENEMENTS ========================
+document.getElementById('randomBtn').onclick = generateCase;
 document.getElementById('showCorrectionBtn').onclick = showStaticCorrection;
 document.getElementById('aiCorrectionBtn').onclick = showAICorrection;
 document.getElementById('resetBtn').onclick = resetProgress;
-document.getElementById('themeSelect').onchange = () => pickRandomCase();
-document.getElementById('difficultySelect').onchange = () => pickRandomCase();
-document.getElementById('modeSelect').onchange = () => pickRandomCase();
+document.getElementById('themeSelect').onchange = generateCase;
+document.getElementById('difficultySelect').onchange = generateCase;
+document.getElementById('modeSelect').onchange = generateCase;
 
+// ======================== INITIALISATION ========================
 loadProgress();
-pickRandomCase();
+generateCase();
 </script>
 </body>
 </html>
